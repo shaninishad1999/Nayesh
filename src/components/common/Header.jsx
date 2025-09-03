@@ -140,53 +140,53 @@ const Header = () => {
       </div>
 
       {/* Desktop Full-Screen Modal Menu */}
-      {isDesktopMenuOpen && (
-        <div className="fixed inset-0 bg-black/10 backdrop-blur-lg flex flex-col items-center justify-center z-50">
-          {/* Close Button */}
-          <button
-            className="absolute top-6 right-6 text-white hover:text-blue-400 transition-colors duration-300"
+{isDesktopMenuOpen && (
+  <div className="fixed inset-0 h-screen w-screen bg-black/90 backdrop-blur-lg flex flex-col items-center justify-center z-[999]">
+    {/* Close Button */}
+    <button
+      className="absolute top-6 right-6 text-white hover:text-blue-400 transition-colors duration-300"
+      onClick={() => setIsDesktopMenuOpen(false)}
+      aria-label="Close menu"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-8 w-8"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+
+    {/* Desktop Menu Links */}
+    <ul className="flex flex-col gap-12 text-center">
+      {menuItems.map((item, idx) => (
+        <li key={idx}>
+          <Link
+            to={item.path}
+            className="relative text-white text-xl font-bold transition-all duration-300 transform hover:scale-110 group"
             onClick={() => setIsDesktopMenuOpen(false)}
-            aria-label="Close menu"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
+            {item.label}
+            <span className="absolute left-1/2 -bottom-2 w-0 h-1 bg-blue-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+          </Link>
+        </li>
+      ))}
+    </ul>
 
-          {/* Desktop Menu Links - Responsive + Animation */}
-          <ul className="flex flex-col gap-12 text-center">
-            {menuItems.map((item, idx) => (
-              <li key={idx}>
-                <Link
-                  to={item.path}
-                  className="relative text-white text-xl  font-bold transition-all duration-300 transform hover:scale-110 group"
-                  onClick={() => setIsDesktopMenuOpen(false)}
-                >
-                  {item.label}
-                  {/* Underline Animation */}
-                  <span className="absolute left-1/2 -bottom-2 w-0 h-1 bg-blue-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+    {/* Bottom Info (inside modal) */}
+    <div className="absolute bottom-8 text-center w-full">
+      <p className="text-white/60 text-sm">Press ESC to close</p>
+    </div>
+  </div>
+)}
 
-          {/* Additional Info */}
-          <div className="absolute bottom-12 text-center">
-            <p className="text-white/60 text-sm">Press ESC to close</p>
-          </div>
-        </div>
-      )}
 
       {/* Mobile Simple Dropdown Menu */}
       {isMobileMenuOpen && (
