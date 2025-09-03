@@ -7,7 +7,7 @@ export default function FoundersSection() {
       <div className="text-center lg:text-left mb-10 sm:mb-16">
        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-widest leading-tight flex flex-wrap gap-4">
   <span className="text-gray-300 inline-block">FROM THE</span>
-  <span className="text-red-600 inline-block">FOUNDERS</span>
+  <span className="text-[#c34147] inline-block">FOUNDERS</span>
 </h1>
 
       </div>
@@ -17,17 +17,17 @@ export default function FoundersSection() {
         {/* First Column */}
         <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center sm:items-end space-y-6 sm:space-y-0 sm:space-x-6">
           {/* Red Box */}
-          <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-red-600 shadow-lg"></div>
+          <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-[#C16367] shadow-lg"></div>
           {/* Attribution */}
           <div className="text-center sm:text-left">
             {/* Red Shape */}
             <div
-              className="w-16 sm:w-20 h-3 sm:h-4 bg-red-600 mx-auto sm:mx-0 mb-2"
+              className="w-16 sm:w-20 h-3 sm:h-4 bg-[##BD4C4F] mx-auto sm:mx-0 mb-2"
               style={{
                 clipPath: "polygon(0 0, 90% 0, 100% 100%, 10% 100%)",
               }}
             ></div>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl text-red-600 font-medium mb-1 sm:mb-2 whitespace-nowrap">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl text-[#c34147] font-medium mb-1 sm:mb-2 whitespace-nowrap">
               Satish Kataria
             </h3>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-800 font-semibold tracking-wide">
@@ -55,9 +55,9 @@ export default function FoundersSection() {
       </div>
       <div className="mt-10 mb-20 sm:mt-16">
         <div className="space-y-1">
-          <div className="h-px bg-red-600 w-full"></div>
-          <div className="h-px bg-red-600 w-full"></div>
-          <div className="h-px bg-red-600 w-full"></div>
+          <div className="h-px bg-[#C16367] w-full"></div>
+          <div className="h-px bg-[#C16367] w-full"></div>
+          <div className="h-px bg-[#C16367] w-full"></div>
         </div>
       </div>
       {/* Second Founder Row - Mirrored Layout */}
@@ -84,12 +84,12 @@ export default function FoundersSection() {
           <div className="text-center sm:text-right order-2 sm:order-1">
             {/* Red Shape */}
             <div
-              className="w-16 sm:w-20 h-3 sm:h-4 bg-red-600 mx-auto sm:ml-auto sm:mr-0 mb-2"
+              className="w-16 sm:w-20 h-3 sm:h-4 bg-[#C16367] mx-auto sm:ml-auto sm:mr-0 mb-2"
               style={{
                 clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0 100%)",
               }}
             ></div>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl text-red-600 font-medium mb-1 sm:mb-2 whitespace-nowrap">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl text-[#c34147] font-medium mb-1 sm:mb-2 whitespace-nowrap">
               Ar. Sanchi Vasvani
             </h3>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-800 font-semibold tracking-wide">
@@ -98,16 +98,16 @@ export default function FoundersSection() {
           </div>
           {/* Red Box */}
           {/* Red Box */}
-          <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-red-600 shadow-lg order-1 sm:order-2"></div>
+          <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-[#c34147]  shadow-lg order-1 sm:order-2"></div>
         </div>
       </div>
 
       {/* Bottom Red Lines */}
       <div className="mt-10 sm:mt-16">
         <div className="space-y-1">
-          <div className="h-px bg-red-600 w-full"></div>
-          <div className="h-px bg-red-600 w-full"></div>
-          <div className="h-px bg-red-600 w-full"></div>
+          <div className="h-px bg-[#C16367] w-full"></div>
+          <div className="h-px bg-[#C16367] w-full"></div>
+          <div className="h-px bg-[#C16367] w-full"></div>
         </div>
       </div>
     </div>

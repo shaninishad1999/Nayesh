@@ -12,7 +12,7 @@ export default function NewsletterSection() {
   };
 
   return (
-    <div className="relative bg-red-600 py-24">
+    <div className="relative bg-[#BE4B50] py-24">
       {/* White line on top - full width */}
       <div className="absolute top-2 left-1/2 transform -translate-x-1/2  w-full h-[2px] bg-white"></div>
       <div className="absolute top-0 left-0 w-full h-[2px] bg-white"></div>

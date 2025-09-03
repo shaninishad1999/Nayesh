@@ -10,13 +10,13 @@ export default function NayashLanding() {
         <div className="grid lg:grid-cols-[auto,1fr] gap-12 lg:gap-28 mb-16">
           {/* Left Column - Large Typography */}
           <div>
-            <span className="block text-4xl lg:text-5xl xl:text-[105px] font-light text-red-500 leading-none tracking-wide">
+            <span className="block text-4xl lg:text-5xl xl:text-[105px] font-light text-[#c34147] leading-none tracking-wide">
               WHERE
             </span>
-            <span className="block text-4xl lg:text-5xl xl:text-[105px] font-light text-red-500 leading-none tracking-wide">
+            <span className="block text-4xl lg:text-5xl xl:text-[105px] font-light text-[#c34147] leading-none tracking-wide">
               SMILES
             </span>
-            <span className="block text-4xl lg:text-5xl xl:text-[105px] font-light text-red-500 leading-none tracking-wide">
+            <span className="block text-4xl lg:text-5xl xl:text-[105px] font-light text-[#c34147] leading-none tracking-wide">
               BEGIN
             </span>
           </div>
@@ -25,7 +25,7 @@ export default function NayashLanding() {
           <div className="space-y-8">
             <div className="space-y-0 text-gray-700 text-2xl leading-relaxed">
               <p className="m-0">
-                <span className="text-red-500 font-semibold">Nayash</span> is
+                <span className="text-[#c34147] font-semibold">Nayash</span> is
                 more than a name.
               </p>
               <p className="m-0">
@@ -33,7 +33,7 @@ export default function NayashLanding() {
               </p>
               <p className="m-0">
                 It is an{" "}
-                <span className="text-red-500 font-semibold">
+                <span className="text-[#c34147] font-semibold">
                   architecture and interiors studio
                 </span>
                 , shaping
@@ -41,7 +41,7 @@ export default function NayashLanding() {
               <p>premium homes and communities in Pune, and</p>
               <p className="m-0">
                 a{" "}
-                <span className="text-red-500 font-semibold">
+                <span className="text-[#c34147] font-semibold">
                   construction house
                 </span>{" "}
                 defining residential
@@ -79,7 +79,7 @@ export default function NayashLanding() {
           </div>
         </div>
       </div>
-      <div className="bg-red-500 h-28 lg:h-36 w-full -mt-12"></div>
+      <div className="bg-[#c34147] h-28 lg:h-36 w-full -mt-12"></div>
     </div>
   );
 }
