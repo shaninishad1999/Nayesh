@@ -9,21 +9,23 @@ export default function NayashLanding() {
         {/* Top Section with Typography and Content */}
         <div className="grid lg:grid-cols-[auto,1fr] gap-12 lg:gap-28 mb-16">
           {/* Left Column - Large Typography */}
-          <div>
-            <span className="block text-4xl lg:text-5xl xl:text-[105px] font-light text-[#c34147] leading-none tracking-wide">
+          <div className="text-center lg:text-left">
+            <span className="inline text-2xl sm:text-4xl lg:block lg:text-5xl xl:text-[105px] font-light text-[#c34147] leading-none tracking-wide mr-2">
               WHERE
             </span>
-            <span className="block text-4xl lg:text-5xl xl:text-[105px] font-light text-[#c34147] leading-none tracking-wide">
+            <span className="inline text-2xl sm:text-4xl lg:block lg:text-5xl xl:text-[105px] font-light text-[#c34147] leading-none tracking-wide mr-2">
               SMILES
             </span>
-            <span className="block text-4xl lg:text-5xl xl:text-[105px] font-light text-[#c34147] leading-none tracking-wide">
+            <span className="inline text-2xl sm:text-4xl lg:block lg:text-5xl xl:text-[105px] font-light text-[#c34147] leading-none tracking-wide">
               BEGIN
             </span>
           </div>
 
           {/* Right Column - Description Text */}
           <div className="space-y-8">
-            <div className="space-y-0 text-gray-700 text-2xl leading-relaxed">
+         <div className="space-y-0 text-gray-700 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed text-center sm:text-left">
+
+
               <p className="m-0">
                 <span className="text-[#c34147] font-semibold">Nayash</span> is
                 more than a name.

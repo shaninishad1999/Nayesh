@@ -4,13 +4,13 @@ export default function FoundersSection() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 bg-white">
       {/* Header */}
-      <div className="text-center lg:text-left mb-10 sm:mb-16">
-       <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-widest leading-tight flex flex-wrap gap-4">
-  <span className="text-gray-300 inline-block">FROM THE</span>
-  <span className="text-[#c34147] inline-block">FOUNDERS</span>
-</h1>
+     <div className="text-center lg:text-left mb-6 sm:mb-10 lg:mb-16">
+  <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light tracking-wide sm:tracking-wider lg:tracking-widest leading-snug sm:leading-tight flex flex-wrap gap-2 sm:gap-4">
+    <span className="text-gray-300 inline-block">FROM THE</span>
+    <span className="text-[#c34147] inline-block">FOUNDERS</span>
+  </h1>
+</div>
 
-      </div>
 
       {/* First Founder Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center mb-16 sm:mb-24">
@@ -22,7 +22,7 @@ export default function FoundersSection() {
           <div className="text-center sm:text-left">
             {/* Red Shape */}
             <div
-              className="w-16 sm:w-20 h-3 sm:h-4 bg-[##BD4C4F] mx-auto sm:mx-0 mb-2"
+              className="w-16 sm:w-20 h-3 sm:h-4 bg-[#BD4C4F] mx-auto sm:mx-0 mb-2"
               style={{
                 clipPath: "polygon(0 0, 90% 0, 100% 100%, 10% 100%)",
               }}
@@ -84,7 +84,7 @@ export default function FoundersSection() {
           <div className="text-center sm:text-right order-2 sm:order-1">
             {/* Red Shape */}
             <div
-              className="w-16 sm:w-20 h-3 sm:h-4 bg-[#C16367] mx-auto sm:ml-auto sm:mr-0 mb-2"
+              className="w-16 sm:w-20 h-3 sm:h-4 bg-[#C16367] mx-auto sm:ml-auto sm:mr-0 mb-2 mt-4"
               style={{
                 clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0 100%)",
               }}
@@ -97,7 +97,7 @@ export default function FoundersSection() {
             </p>
           </div>
           {/* Red Box */}
-          {/* Red Box */}
+
           <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-[#c34147]  shadow-lg order-1 sm:order-2"></div>
         </div>
       </div>

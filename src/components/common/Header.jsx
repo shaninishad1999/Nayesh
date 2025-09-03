@@ -368,14 +368,24 @@ const ImageCarousel = () => {
       </div>
       {/* Bottom Tagline Bar */}
       {/* Bottom Tagline Bar */}
-      <div className="absolute bottom-0 left-0 w-full bg-[#333333] py-4 sm:py-6">
-        <div className="container mx-auto px-4 sm:px-6">
-          <p className="text-white text-center text-sm sm:text-base md:text-lg font-light tracking-[0.3em] sm:tracking-[0.4em]">
-            ARCHITECTURE &nbsp;&nbsp;||&nbsp;&nbsp; INTERIORS
-            &nbsp;&nbsp;||&nbsp;&nbsp; PREMIUM HOMES
-          </p>
-        </div>
-      </div>
+     {/* Bottom Tagline Bar */}
+<div className="absolute bottom-0 left-0 w-full bg-[#333333] py-3 sm:py-6">
+  <div className="container mx-auto px-2 sm:px-6">
+    <p
+      className="
+        text-white text-center 
+        text-xs max-[375px]:text-[10px] 
+        sm:text-sm md:text-lg font-light 
+        tracking-[0.1em] sm:tracking-[0.3em] 
+        leading-snug break-words
+      "
+    >
+      ARCHITECTURE &nbsp;&nbsp;||&nbsp;&nbsp; INTERIORS
+      &nbsp;&nbsp;||&nbsp;&nbsp; PREMIUM HOMES
+    </p>
+  </div>
+</div>
+
     </>
   );
 };
