@@ -34,15 +34,15 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
             {/* About */}
             <div className="font-gotham">
-              <h3 className="text-xl font-semibold mb-6 tracking-wider">
+              <h3 className="text-2xl font-semibold mb-6 tracking-wider">
                 ABOUT
               </h3>
               <ul className="space-y-3">
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">History</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Our Team</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Brand Guidelines</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Terms & Conditions</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Privacy Policy</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">History</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Our Team</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Brand Guidelines</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Terms & Conditions</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Privacy Policy</a></li>
               </ul>
             </div>
 
@@ -52,11 +52,11 @@ const Footer = () => {
                 SERVICES
               </h3>
               <ul className="space-y-3">
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">How to Order</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Our Products</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Order Status</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Promo</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Payment Method</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">How to Order</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Our Products</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Order Status</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Promo</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Payment Method</a></li>
               </ul>
             </div>
 
@@ -66,10 +66,10 @@ const Footer = () => {
                 OTHER
               </h3>
               <ul className="space-y-3 font-gotham">
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Contact Us</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Help</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Privacy</a></li>
-              </ul>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Contact Us</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Help</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Privacy</a></li>
+              </ul> text-lg
             </div>
           </div>
         </div>
