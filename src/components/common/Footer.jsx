@@ -10,23 +10,30 @@ const Footer = () => {
         {/* Main Grid */}
         <div className="flex flex-col md:flex-row justify-between gap-12">
           {/* Logo & Socials */}
-          <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start justify-between">
+            <div>
+
+            </div>
+            <div>
+
+           
             <div className="mb-8">
               <img src={logo} alt="Nayash Logo" className="w-40" />
             </div>
             <div className="flex space-x-2">
-              <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-pink-500 hover:scale-110 transition-all duration-300 group">
-                <Instagram className="w-3.5 h-3.5 text-gray-800 group-hover:text-white transition-colors duration-300" />
+              <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-pink-500 hover:scale-110 transition-all duration-300 group">
+                <Instagram className="w-5 h-5 text-gray-800 group-hover:text-white transition-colors duration-300" />
               </div>
-              <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-600 hover:scale-110 transition-all duration-300 group">
-                <Facebook className="w-3.5 h-3.5 text-gray-800 group-hover:text-white transition-colors duration-300" />
+              <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-600 hover:scale-110 transition-all duration-300 group">
+                <Facebook className="w-5 h-5 text-gray-800 group-hover:text-white transition-colors duration-300" />
               </div>
-              <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-400 hover:scale-110 transition-all duration-300 group">
-                <Twitter className="w-3.5 h-3.5 text-gray-800 group-hover:text-white transition-colors duration-300" />
+              <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-400 hover:scale-110 transition-all duration-300 group">
+                <Twitter className="w-5 h-5 text-gray-800 group-hover:text-white transition-colors duration-300" />
               </div>
-              <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500 hover:scale-110 transition-all duration-300 group">
-                <BsWhatsapp className="w-3.5 h-3.5 text-gray-800 group-hover:text-white transition-colors duration-300" />
+              <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500 hover:scale-110 transition-all duration-300 group">
+                <BsWhatsapp className="w-5 h-5 text-gray-800 group-hover:text-white transition-colors duration-300" />
               </div>
+               </div>
             </div>
           </div>
 
@@ -69,7 +76,7 @@ const Footer = () => {
                 <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Contact Us</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Help</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white hover:underline text-lg">Privacy</a></li>
-              </ul> text-lg
+              </ul>
             </div>
           </div>
         </div>
