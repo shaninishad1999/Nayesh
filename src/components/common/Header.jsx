@@ -75,7 +75,7 @@ const Header = () => {
             <Link
               key={item.path}
               to={item.path}
-              className="text-white font-medium hover:text-blue-400 transition-colors duration-300 text-sm xl:text-base"
+              className="text-white font-gotham font-light hover:text-blue-400 transition-colors duration-300 text-sm xl:text-base"
             >
               {item.label}
             </Link>
@@ -118,7 +118,7 @@ const Header = () => {
 
         {/* Mobile Hamburger - Visible on mobile and tablet */}
         <button
-          className="lg:hidden text-white hover:text-blue-400 transition-colors duration-300 mr-2 sm:mr-4"
+          className="lg:hidden text-white hover:text-blue-400 transition-colors duration-300 mr-2 sm:mr-4 font-gotham font-light"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle mobile menu"
         >
@@ -141,10 +141,10 @@ const Header = () => {
 
       {/* Desktop Full-Screen Modal Menu */}
       {isDesktopMenuOpen && (
-        <div className="fixed inset-0 h-screen w-screen bg-black/90 backdrop-blur-lg flex flex-col items-center justify-center z-[999]">
+        <div className="fixed inset-0 h-screen w-screen bg-black/90 backdrop-blur-lg flex flex-col  font-gotham font-light items-center justify-center z-[999]">
           {/* Close Button */}
           <button
-            className="absolute top-6 right-6 text-white hover:text-blue-400 transition-colors duration-300"
+            className="absolute top-6 right-6 text-white hover:text-blue-400 transition-colors duration-300 font-gotham font-light"
             onClick={() => setIsDesktopMenuOpen(false)}
             aria-label="Close menu"
           >
@@ -170,11 +170,11 @@ const Header = () => {
               <li key={idx}>
                 <Link
                   to={item.path}
-                  className="relative text-white text-xl font-bold transition-all duration-300 transform hover:scale-110 group"
+                  className="relative text-white text-xl transition-all duration-300 transform hover:scale-110 group font-gotham font-light"
                   onClick={() => setIsDesktopMenuOpen(false)}
                 >
                   {item.label}
-                  <span className="absolute left-1/2 -bottom-2 w-0 h-1 bg-blue-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                  <span className="absolute left-1/2 -bottom-2 w-0 h-1 font-gotham font-light bg-blue-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                 </Link>
               </li>
             ))}
@@ -182,7 +182,9 @@ const Header = () => {
 
           {/* Bottom Info (inside modal) */}
           <div className="absolute bottom-8 text-center w-full">
-            <p className="text-white/60 text-sm">Press ESC to close</p>
+            <p className="text-white/60 text-sm font-gotham font-light">
+              Press ESC to close
+            </p>
           </div>
         </div>
       )}
@@ -293,25 +295,25 @@ const ImageCarousel = () => {
         <div className="absolute inset-0 flex items-center justify-end ">
           <div className="text-right ">
             {/* First word - First Line */}
-            <h1 className="text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl uppercase font-bold leading-none animate-fadeInUp">
+            <h1 className="text-white text-3xl font-gotham leading-none sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl uppercase  leading-none animate-fadeInUp">
               {firstWord}
             </h1>
 
             {/* Remaining words - Second Line */}
             {remainingWords && (
-              <h1 className="text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl uppercase font-bold mb-4 sm:mb-6 leading-none animate-fadeInUp animation-delay-200">
+              <h1 className="text-white text-3xl font-gotham  sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl uppercase   leading-none animate-fadeInUp animation-delay-200">
                 {remainingWords}
               </h1>
             )}
 
             {/* Subheading - First Row */}
-            <p className="text-white/90 text-base sm:text-lg uppercase md:text-xl lg:text-2xl xl:text-3xl font-light leading-relaxed animate-fadeInUp animation-delay-400">
+            <p className="text-white/90 text-base sm:text-lg font-gotham  uppercase mb-3 md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed animate-fadeInUp animation-delay-400">
               {firstRow}
             </p>
 
             {/* Subheading - Second Row */}
             {secondRow && (
-              <p className="text-white/90 text-base sm:text-lg uppercase md:text-xl lg:text-2xl xl:text-3xl font-light leading-relaxed animate-fadeInUp animation-delay-600">
+              <p className="text-white/90 text-base sm:text-lg font-gotham  uppercase md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed animate-fadeInUp animation-delay-600">
                 {secondRow}
               </p>
             )}
@@ -367,24 +369,26 @@ const ImageCarousel = () => {
         `}</style>
       </div>
       {/* Bottom Tagline Bar */}
-      {/* Bottom Tagline Bar */}
-     {/* Bottom Tagline Bar */}
+      
 <div className="absolute bottom-0 left-0 w-full bg-[#333333] py-3 sm:py-6">
   <div className="container mx-auto px-2 sm:px-6">
     <p
-      className="
-        text-white text-center 
-        text-xs max-[375px]:text-[10px] 
-        sm:text-sm md:text-lg font-light 
-        tracking-[0.1em] sm:tracking-[0.3em] 
-        leading-snug break-words
-      "
-    >
-      ARCHITECTURE &nbsp;&nbsp;||&nbsp;&nbsp; INTERIORS
-      &nbsp;&nbsp;||&nbsp;&nbsp; PREMIUM HOMES
-    </p>
+  className="
+    text-white text-center 
+    text-sm max-[375px]:text-xs 
+    sm:text-lg md:text-2xl lg:text-3xl xl:text-3xl 
+    tracking-tight sm:tracking-[0.05em] 
+    leading-snug break-words font-gotham font-light
+  "
+>
+  ARCHITECTURE &nbsp;&nbsp;||&nbsp;&nbsp; INTERIORS
+  &nbsp;&nbsp;||&nbsp;&nbsp; PREMIUM HOMES
+</p>
+
   </div>
 </div>
+
+
 
     </>
   );

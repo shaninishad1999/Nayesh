@@ -33,7 +33,7 @@ const Footer = () => {
           {/* Links */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
             {/* About */}
-            <div>
+            <div className="font-gotham">
               <h3 className="text-xl font-semibold mb-6 tracking-wider">
                 ABOUT
               </h3>
@@ -47,7 +47,7 @@ const Footer = () => {
             </div>
 
             {/* Services */}
-            <div>
+            <div className="font-gotham">
               <h3 className="text-xl font-semibold mb-6 tracking-wider">
                 SERVICES
               </h3>
@@ -62,10 +62,10 @@ const Footer = () => {
 
             {/* Other */}
             <div>
-              <h3 className="text-xl font-semibold mb-6 tracking-wider">
+              <h3 className="text-xl font-semibold mb-6 tracking-wider font-gotham">
                 OTHER
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-3 font-gotham">
                 <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Contact Us</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Help</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white hover:underline">Privacy</a></li>
@@ -76,7 +76,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-gray-600 text-center">
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 text-sm font-gotham font-semibold">
             © 2025 NAYASH GROUP. All rights reserved. | WHERE SMILES BEGIN
           </p>
         </div>

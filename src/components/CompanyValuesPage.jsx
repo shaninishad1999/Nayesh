@@ -9,7 +9,7 @@ const CompanyValuesPage = () => {
           {/* Our Values Header */}
           <div className="text-left mb-12">
             <h1 className="text-4xl md:text-5xl font-light tracking-wider">
-              OUR <span className="font-bold">VALUES</span>
+              OUR <span className="font-gotham">VALUES</span>
             </h1>
           </div>
 
@@ -25,14 +25,14 @@ const CompanyValuesPage = () => {
               <div className="block md:hidden absolute bottom-0 left-0 w-full border-b-2 border-gray-300"></div>
               <div className="block md:hidden absolute bottom-2 left-0 w-full border-b-2 border-gray-300"></div>
 
-              <h2 className="text-4xl font-light mb-4 tracking-wide">
+              <h2 className="text-3xl font-light mb-12 tracking-wide">
                 PROMISE-DRIVEN
                 <br />
-                <span className="font-bold">DELIVERY</span>
+                <span className="font-gotham">DELIVERY</span>
               </h2>
-              <p className="text-sm leading-relaxed opacity-90 pr-8  md:pr-4">
-                Homes that embrace your everyday rituals, from morning light in
-                the kitchen to quiet corners made for unwinding.
+              <p className="text-sm leading-relaxed opacity-90 pr-8  md:pr-4 font-gotham font-semibold">
+                Homes that embrace your <br /> everyday rituals, from morning <br /> light in
+                the kitchen to quiet corners <br /> made for unwinding.
               </p>
             </div>
 
@@ -46,28 +46,28 @@ const CompanyValuesPage = () => {
               <div className="block md:hidden absolute bottom-0 left-0 w-full border-b-2 border-gray-300"></div>
               <div className="block md:hidden absolute bottom-2 left-0 w-full border-b-2 border-gray-300"></div>
 
-              <h2 className="text-4xl font-light mb-4 tracking-wide">
+              <h2 className="text-3xl font-light mb-12 tracking-wide ">
                 HUMAN-FIRST
                 <br />
-                <span className="font-bold">DESIGN</span>
+                <span className="font-gotham">DESIGN</span>
               </h2>
-              <p className="text-sm leading-relaxed opacity-90">
-                Clear conversations, honest timelines, and a journey without
-                hidden turns — so you always know where you stand.
+              <p className="text-sm leading-relaxed opacity-90 font-gotham font-semibold ">
+                Clear conversations, <br /> honest timelines, and a journey <br /> without
+                hidden turns — so you  <br />always know where you stand.
               </p>
             </div>
 
             {/* Quality That Lasts */}
             <div className="text-left relative">
-              <h2 className="text-4xl font-light mb-4 tracking-wide">
-                <span className="font-bold">QUALITY</span>
+              <h2 className="text-3xl font-light mb-12 tracking-wide">
+                <span className="font-gotham">QUALITY</span>
                 <br />
                 THAT LASTS
               </h2>
-              <p className="text-sm leading-relaxed opacity-90 pr-8 md:pr-0">
-                Craftsmanship that lingers in the little things: solid doors
-                that close softly, finishes that age with grace, and spaces
-                built to hold generations of memories.
+              <p className="text-sm leading-relaxed opacity-90 pr-8 md:pr- font-gotham font-light">
+                Craftsmanship that lingers <br /> in the little things: solid doors <br />
+                that close softly, finishes that age <br /> with grace, and spaces
+                built to  <br /> hold generations of memories.
               </p>
             </div>
           </div>
@@ -79,8 +79,8 @@ const CompanyValuesPage = () => {
 
           {/* How We Work Header */}
           <div className="text-right ">
-            <h1 className="text-4xl md:text-7xl font-light tracking-wider">
-              HOW WE <span className="font-bold">WORK</span>
+            <h1 className="text-4xl md:text-7xl font-light tracking-wider ">
+              HOW WE <span className="font-gotham">WORK</span>
             </h1>
           </div>
         </div>

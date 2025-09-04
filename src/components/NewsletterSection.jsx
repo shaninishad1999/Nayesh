@@ -19,11 +19,11 @@ export default function NewsletterSection() {
       
       {/* White line above text */}
       
-      <div className="text-center px-6 max-w-4xl mx-auto">
+      <div className="text-center px-6 max-w-4xl mx-auto ">
         {/* Heading */}
-        <h2 className="text-white text-2xl md:text-3xl font-light mb-12 leading-relaxed">
-          LET'S CATCH UP OVER <br />
-          <span className="font-semibold">COFFEE AND BLUEPRINTS.</span>
+        <h2 className=" text-2xl md:text-2xl  mb-4  leading-relaxed">
+        <span className="text-gray-300 font-light ">  LET'S CATCH UP OVER </span> <br />
+          <span className="font-gotham text-white">COFFEE AND BLUEPRINTS.</span>
         </h2>
 
         {/* Newsletter Input */}
@@ -38,7 +38,7 @@ export default function NewsletterSection() {
   />
   <button
     onClick={handleSubmit}
-    className="bg-gray-900 text-gray-300 px-8 py-3 text-lg md:text-3xl rounded-r-md sm:rounded-l-none rounded-l-md hover:bg-black hover:text-white transition-colors duration-300 font-semibold cursor-pointer"
+    className="bg-gray-900 text-gray-400 px-8 py-1 font-gotham  text-lg md:text-3xl rounded-r-md sm:rounded-l-none rounded-l-md hover:bg-black hover:text-white transition-colors duration-300 font-thin cursor-pointer"
   >
     SUBMIT
   </button>
