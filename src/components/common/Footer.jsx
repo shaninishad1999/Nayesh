@@ -18,20 +18,20 @@ const Footer = () => {
 
            
             <div className="mb-8">
-              <img src={logo} alt="Nayash Logo" className="w-40" />
+              <img src={logo} alt="Nayash Logo" className="w-56" />
             </div>
-            <div className="flex space-x-2">
-              <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-pink-500 hover:scale-110 transition-all duration-300 group">
-                <Instagram className="w-5 h-5 text-gray-800 group-hover:text-white transition-colors duration-300" />
+            <div className="flex space-x-4">
+              <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-pink-500 hover:scale-110 transition-all duration-300 group">
+                <Instagram className="w-6 h-6 text-gray-800 group-hover:text-white transition-colors duration-300" />
               </div>
-              <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-600 hover:scale-110 transition-all duration-300 group">
-                <Facebook className="w-5 h-5 text-gray-800 group-hover:text-white transition-colors duration-300" />
+              <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-600 hover:scale-110 transition-all duration-300 group">
+                <Facebook className="w-6 h-6 text-gray-800 group-hover:text-white transition-colors duration-300" />
               </div>
-              <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-400 hover:scale-110 transition-all duration-300 group">
-                <Twitter className="w-5 h-5 text-gray-800 group-hover:text-white transition-colors duration-300" />
+              <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-400 hover:scale-110 transition-all duration-300 group">
+                <Twitter className="w-6 h-6 text-gray-800 group-hover:text-white transition-colors duration-300" />
               </div>
-              <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500 hover:scale-110 transition-all duration-300 group">
-                <BsWhatsapp className="w-5 h-5 text-gray-800 group-hover:text-white transition-colors duration-300" />
+              <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-green-500 hover:scale-110 transition-all duration-300 group">
+                <BsWhatsapp className="w-6 h-6 text-gray-800 group-hover:text-white transition-colors duration-300" />
               </div>
                </div>
             </div>
