@@ -292,7 +292,7 @@ const ImageCarousel = () => {
         </div>
 
         {/* Dots Navigation */}
-        <div className="absolute bottom-20 sm:bottom-24 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-20">
+        <div className="absolute bottom-24 sm:bottom-28 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-20">
           {images.map((_, index) => (
             <button
               key={index}
