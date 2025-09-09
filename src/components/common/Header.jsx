@@ -45,13 +45,16 @@ const Header = () => {
     { path: "/contact", label: "CONTACT US" },
   ];
 
-  // helper for text color based on scroll
+  // desktop color
   const textColorClass = isScrolled ? "text-red-600" : "text-white";
   const hoverColorClass = isScrolled ? "hover:text-red-700" : "hover:text-blue-400";
 
+  // mobile specific text color (black before scroll, red after scroll)
+  const mobileTextColor = isScrolled ? "text-red-600" : "text-white";
+
   return (
     <header
-      className={`fixed top-0 left-0  z-[99999] w-full  transition-all duration-300 ${
+      className={`fixed top-0 left-0 z-[99999] w-full transition-all duration-300 ${
         isScrolled ? "bg-white/95 backdrop-blur-sm shadow-lg py-2" : "bg-transparent py-4"
       }`}
     >
@@ -61,7 +64,9 @@ const Header = () => {
           <img
             src={isScrolled ? colorLogo : logo}
             alt="MyLogo"
-            className={`w-auto transition-all duration-300 ease-out ${isScrolled ? "h-12 sm:h-14" : "h-14 sm:h-18"}`}
+            className={`w-auto transition-all duration-300 ease-out ${
+              isScrolled ? "h-12 sm:h-14" : "h-14 sm:h-18"
+            }`}
           />
         </div>
 
@@ -90,14 +95,12 @@ const Header = () => {
               onClick={() => setIsDesktopMenuOpen(true)}
               aria-label="Open menu"
             >
-              {/* menuIcon: invert when not scrolled so it appears white; invert-0 when scrolled to show original (black) */}
               <img
                 src={menuIcon}
                 alt="Open menu"
                 className={`h-8 w-8 xl:h-8 xl:w-8 object-contain transition-filter duration-200 ${
-                  isScrolled ? "filter invert" : " filter invert-0"
+                  isScrolled ? "filter invert" : "filter invert-0"
                 }`}
-               
               />
             </button>
           </div>
@@ -105,7 +108,7 @@ const Header = () => {
 
         {/* Mobile Hamburger */}
         <button
-          className={`lg:hidden transition-colors duration-300 mr-2 sm:mr-4 font-gotham font-light ${textColorClass}`}
+          className={`lg:hidden transition-colors duration-300 mr-2 sm:mr-4 font-gotham font-light ${mobileTextColor}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle mobile menu"
         >
@@ -113,7 +116,7 @@ const Header = () => {
             src={menuIcon}
             alt="Toggle menu"
             className={`h-6 w-6 sm:h-7 sm:w-7 object-contain transition-filter duration-200 ${
-              isScrolled ? "filter invert-0" : "filter invert"
+                  isScrolled ? "filter invert" : "filter invert-0"
             }`}
             aria-hidden="true"
           />
@@ -154,7 +157,7 @@ const Header = () => {
         </div>
       )}
 
-      {/* Mobile Simple Dropdown Menu */}
+      {/* Mobile Dropdown */}
       {isMobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-white/95 z-40 shadow-sm">
           <nav className="px-2 py-2">
@@ -163,7 +166,7 @@ const Header = () => {
                 <li key={idx}>
                   <Link
                     to={item.path}
-                    className="block text-gray-900 text-xs font-medium py-2 px-4 hover:text-blue-600 hover:bg-gray-100 rounded transition-all duration-300"
+                    className="block text-red-700 text-xs font-medium py-2 px-4 hover:text-blue-600 hover:bg-gray-100 rounded transition-all duration-300"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.label}
@@ -177,6 +180,7 @@ const Header = () => {
     </header>
   );
 };
+
 
 
 
@@ -359,7 +363,7 @@ const ImageCarousel = () => {
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className=" bg-white">
       <Header />
       <main>
         <ImageCarousel />
