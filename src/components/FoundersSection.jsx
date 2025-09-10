@@ -239,7 +239,7 @@ export default function FoundersSection() {
   };
 
   return (
-    <section ref={sectionRef} className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 bg-white">
+    <section ref={sectionRef} className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 bg-white" id="founders">
       {/* Header */}
       <header className="text-center lg:text-left mb-6 sm:mb-10 lg:mb-16">
         <h1

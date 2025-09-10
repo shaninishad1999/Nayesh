@@ -3,17 +3,16 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import menuIcon from "../../assets/menuIcon.png";
 import colorLogo from "../../assets/colorLogo.png";
-
+import img1 from "../../assets/crousalImg/1.jpg";
+import img2 from "../../assets/crousalImg/2.jpg";
+import img3 from "../../assets/crousalImg/3.jpg";
 const Header = () => {
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -37,68 +36,116 @@ const Header = () => {
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
-
+  const handleLogoClick = (e) => {
+    // If already on home, scroll to top smoothly
+    if (location.pathname === "/") {
+      // prevent default Link behavior (no navigation) and smooth-scroll to top
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      // also close any open menus
+      setIsDesktopMenuOpen(false);
+      setIsMobileMenuOpen(false);
+    } else {
+      // otherwise let react-router navigate to home
+      // no need to preventDefault; but to be explicit, use navigate
+      e.preventDefault();
+      navigate("/");
+      setIsDesktopMenuOpen(false);
+      setIsMobileMenuOpen(false);
+    }
+  };
   const menuItems = [
-    { path: "/founders", label: "FROM THE FOUNDERS" },
-    { path: "/ethos", label: "OUR ETHOS" },
-    { path: "/offer", label: "WHAT WE OFFER" },
-    { path: "/contact", label: "CONTACT US" },
+    { id: "founders", path: "/founders", label: "FROM THE FOUNDERS" },
+    { id: "ethos", path: "/ethos", label: "OUR ETHOS" },
+    { id: "offer", path: "/offer", label: "WHAT WE OFFER" },
+    { id: "contact", path: "/contact", label: "CONTACT US" },
   ];
 
-  // desktop color
   const textColorClass = isScrolled ? "text-red-600" : "text-white";
-  const hoverColorClass = isScrolled ? "hover:text-red-700" : "hover:text-blue-400";
-
-  // mobile specific text color (black before scroll, red after scroll)
+  const hoverColorClass = isScrolled
+    ? "hover:text-red-700"
+    : "hover:text-blue-400";
   const mobileTextColor = isScrolled ? "text-red-600" : "text-white";
+
+  const scrollToId = (id) => {
+    const el = document.getElementById(id);
+    if (!el) {
+      setIsDesktopMenuOpen(false);
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
+    const header = document.querySelector("header");
+    const headerOffset = header ? header.offsetHeight : 80;
+    const elementTop = el.getBoundingClientRect().top + window.pageYOffset;
+    const scrollToPosition = Math.max(elementTop - headerOffset - 8, 0);
+
+    window.scrollTo({
+      top: scrollToPosition,
+      behavior: "smooth",
+    });
+
+    setIsDesktopMenuOpen(false);
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header
       className={`fixed top-0 left-0 z-[99999] w-full transition-all duration-300 ${
-        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-lg py-2" : "bg-transparent py-4"
+        isScrolled
+          ? "bg-white/95 backdrop-blur-sm shadow-lg py-2"
+          : "bg-transparent py-4"
       }`}
     >
       <div className="container mx-auto flex justify-between items-center px-4 sm:px-6">
-        {/* Logo */}
-        <div className="ml-2 sm:ml-8">
-          <img
-            src={isScrolled ? colorLogo : logo}
-            alt="MyLogo"
-            className={`w-auto transition-all duration-300 ease-out ${
-              isScrolled ? "h-12 sm:h-14" : "h-14 sm:h-18"
-            }`}
-          />
+        <div className="ml-2 sm:ml-4">
+          {/* Wrap logo in Link to navigate to home ("/") */}
+          <Link to="/" aria-label="Go to home" onClick={handleLogoClick}>
+            <img
+              src={isScrolled ? colorLogo : logo}
+              alt="MyLogo"
+              className={`w-auto transition-all duration-300 ease-out ${
+                isScrolled
+                  ? "h-12 sm:h-14 md:h-16 lg:h-20"
+                  : "h-14 sm:h-16 md:h-20 lg:h-24"
+              }`}
+              style={{ objectFit: "contain" }}
+            />
+          </Link>
         </div>
 
         {/* Desktop Menu */}
         <nav className="hidden lg:flex gap-8 mr-8 items-center">
           {menuItems.slice(0, 3).map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
+            <button
+              key={item.id}
+              onClick={() => scrollToId(item.id)}
               className={`${textColorClass} font-gotham font-light ${hoverColorClass} transition-colors duration-300 text-sm xl:text-base`}
+              aria-label={`Go to ${item.label}`}
             >
               {item.label}
-            </Link>
+            </button>
           ))}
 
           <div className="relative flex items-center gap-6 xl:gap-8">
-            <Link
-              to="/contact"
+            <button
+              onClick={() => scrollToId("contact")}
               className={`${textColorClass} font-medium ${hoverColorClass} transition-colors duration-300 text-sm xl:text-base`}
             >
               CONTACT US
-            </Link>
+            </button>
 
             <button
-              className={`transition-all duration-300 ${isScrolled ? "ml-2" : "-mt-8 ml-2"}`}
+              className={`transition-all duration-300 ${
+                isScrolled ? "ml-2" : "-mt-8 ml-2"
+              }`}
               onClick={() => setIsDesktopMenuOpen(true)}
               aria-label="Open menu"
             >
               <img
                 src={menuIcon}
                 alt="Open menu"
-                className={`h-8 w-8 xl:h-8 xl:w-8 object-contain transition-filter duration-200 ${
+                className={`h-10 w-10 xl:h-12 xl:w-12 object-contain transition-filter duration-200 ${
                   isScrolled ? "filter invert" : "filter invert-0"
                 }`}
               />
@@ -116,7 +163,7 @@ const Header = () => {
             src={menuIcon}
             alt="Toggle menu"
             className={`h-6 w-6 sm:h-7 sm:w-7 object-contain transition-filter duration-200 ${
-                  isScrolled ? "filter invert" : "filter invert-0"
+              isScrolled ? "filter invert" : "filter invert-0"
             }`}
             aria-hidden="true"
           />
@@ -131,28 +178,41 @@ const Header = () => {
             onClick={() => setIsDesktopMenuOpen(false)}
             aria-label="Close menu"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
 
           <ul className="flex flex-col gap-12 text-center">
             {menuItems.map((item, idx) => (
               <li key={idx}>
-                <Link
-                  to={item.path}
+                <button
+                  onClick={() => scrollToId(item.id)}
                   className="relative text-gray-900 text-xl transition-all duration-300 transform hover:scale-110 group font-gotham font-light"
-                  onClick={() => setIsDesktopMenuOpen(false)}
+                  aria-label={`Go to ${item.label}`}
                 >
                   {item.label}
                   <span className="absolute left-1/2 -bottom-2 w-0 h-1 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </Link>
+                </button>
               </li>
             ))}
           </ul>
 
           <div className="absolute bottom-8 text-center w-full">
-            <p className="text-gray-500 text-sm font-gotham font-light">Press ESC to close</p>
+            <p className="text-gray-500 text-sm font-gotham font-light">
+              Press ESC to close
+            </p>
           </div>
         </div>
       )}
@@ -164,13 +224,13 @@ const Header = () => {
             <ul className="space-y-0">
               {menuItems.map((item, idx) => (
                 <li key={idx}>
-                  <Link
-                    to={item.path}
-                    className="block text-red-700 text-xs font-medium py-2 px-4 hover:text-blue-600 hover:bg-gray-100 rounded transition-all duration-300"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                  <button
+                    onClick={() => scrollToId(item.id)}
+                    className="block text-red-700 text-xs font-medium py-2 px-4 hover:text-blue-600 hover:bg-gray-100 rounded transition-all duration-300 w-full text-left"
+                    aria-label={`Go to ${item.label}`}
                   >
                     {item.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -181,29 +241,27 @@ const Header = () => {
   );
 };
 
-
-
-
 const ImageCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const images = [
     {
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop",
+      src: img1,
       alt: "Beautiful landscape 1",
-      heading: "Welcome to Our World",
+      heading: "The Balcony",
       subheading:
         "Discover amazing experiences and create unforgettable memories",
     },
     {
-      src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920&h=1080&fit=crop",
+      src: img2,
       alt: "Beautiful landscape 2",
       heading: "Explore Nature's Beauty",
       subheading:
         "Immerse yourself in breathtaking landscapes and serene environments",
     },
     {
-      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop",
+      src: img3,
       alt: "Beautiful landscape 3",
       heading: "Adventure Awaits",
       subheading: "Embark on journeys that will transform your perspective",
@@ -228,19 +286,31 @@ const ImageCarousel = () => {
     return { firstRow, secondRow };
   };
 
-  // Auto-slide every 4 seconds
+  // Auto-slide every 4 seconds with text animation
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
+      setIsTransitioning(true);
+
+      setTimeout(() => {
+        setCurrentIndex((prevIndex) =>
+          prevIndex === images.length - 1 ? 0 : prevIndex + 1
+        );
+        setIsTransitioning(false);
+      }, 300); // Half of the transition duration
     }, 4000);
 
     return () => clearInterval(interval);
   }, [images.length]);
 
   const goToSlide = (index) => {
-    setCurrentIndex(index);
+    if (index !== currentIndex) {
+      setIsTransitioning(true);
+
+      setTimeout(() => {
+        setCurrentIndex(index);
+        setIsTransitioning(false);
+      }, 300);
+    }
   };
 
   const { firstWord, remainingWords } = splitHeading(
@@ -252,39 +322,68 @@ const ImageCarousel = () => {
 
   return (
     <>
-      <div className="relative w-full h-screen">
-        <img
-          src={images[currentIndex].src}
-          alt={images[currentIndex].alt}
-          className="w-full h-full object-cover transition-all duration-700"
-        />
+      <div className="relative w-full h-screen overflow-hidden">
+        {/* Image with transition */}
+        <div className="relative w-full h-full">
+          <img
+            src={images[currentIndex].src}
+            alt={images[currentIndex].alt}
+            className={`w-full h-full object-cover transition-all duration-700 ease-in-out transform ${
+              isTransitioning ? "scale-110 opacity-80" : "scale-100 opacity-100"
+            }`}
+          />
+        </div>
 
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black/20"></div>
 
-        {/* Text Overlay - Right Side */}
-        <div className="absolute inset-0 flex items-center justify-end ">
-          <div className="text-right pr-6 md:pr-12 lg:pr-20">
-            {/* First word - First Line */}
-            <h1 className="text-white text-3xl font-gotham leading-none sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl uppercase animate-fadeInUp">
+        {/* Text Overlay - Right Side with enhanced animations */}
+        <div className="absolute inset-0 flex items-center justify-end">
+          <div className="text-right ">
+            {/* First word - First Line with slide animation */}
+            <h1
+              className={`text-white text-3xl font-gotham leading-none sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl uppercase transition-all duration-700 ease-out transform ${
+                isTransitioning
+                  ? "translate-x-full opacity-0"
+                  : "translate-x-0 opacity-100 animate-slideInRight"
+              }`}
+            >
               {firstWord}
             </h1>
 
             {/* Remaining words - Second Line */}
             {remainingWords && (
-              <h1 className="text-white text-3xl font-gotham sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl uppercase leading-none animate-fadeInUp animation-delay-200">
+              <h1
+                className={`text-white text-3xl font-gotham sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl uppercase leading-none transition-all duration-700 ease-out transform ${
+                  isTransitioning
+                    ? "translate-x-full opacity-0"
+                    : "translate-x-0 opacity-100 animate-slideInRight animation-delay-200"
+                }`}
+              >
                 {remainingWords}
               </h1>
             )}
 
             {/* Subheading - First Row */}
-            <p className="text-white/90 text-base sm:text-lg font-gotham uppercase mb-3 md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed animate-fadeInUp animation-delay-400">
+            <p
+              className={`text-white/90 text-base sm:text-lg font-gotham uppercase mb-3 md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed transition-all duration-700 ease-out transform ${
+                isTransitioning
+                  ? "translate-y-8 opacity-0"
+                  : "translate-y-0 opacity-100 animate-fadeInUp animation-delay-400"
+              }`}
+            >
               {firstRow}
             </p>
 
             {/* Subheading - Second Row */}
             {secondRow && (
-              <p className="text-white/90 text-base sm:text-lg font-gotham uppercase md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed animate-fadeInUp animation-delay-600">
+              <p
+                className={`text-white/90 text-base sm:text-lg font-gotham uppercase md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed transition-all duration-700 ease-out transform ${
+                  isTransitioning
+                    ? "translate-y-8 opacity-0"
+                    : "translate-y-0 opacity-100 animate-fadeInUp animation-delay-600"
+                }`}
+              >
                 {secondRow}
               </p>
             )}
@@ -297,45 +396,106 @@ const ImageCarousel = () => {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 ${
+              className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 transform hover:scale-125 ${
                 index === currentIndex
-                  ? "bg-white scale-125"
+                  ? "bg-white scale-125 shadow-lg"
                   : "bg-white/50 hover:bg-white/75"
               }`}
             />
           ))}
         </div>
 
-        {/* Custom CSS for animations */}
+        {/* Enhanced Custom CSS for animations */}
         <style jsx>{`
           @keyframes fadeInUp {
             from {
               opacity: 0;
-              transform: translateY(30px);
+              transform: translateY(50px) scale(0.95);
             }
             to {
               opacity: 1;
-              transform: translateY(0);
+              transform: translateY(0) scale(1);
+            }
+          }
+
+          @keyframes slideInRight {
+            from {
+              opacity: 0;
+              transform: translateX(120px) scale(0.95);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0) scale(1);
+            }
+          }
+
+          @keyframes slideInLeft {
+            from {
+              opacity: 0;
+              transform: translateX(-120px) scale(0.95);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0) scale(1);
+            }
+          }
+
+          @keyframes scaleIn {
+            from {
+              opacity: 0;
+              transform: scale(0.8);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1);
             }
           }
 
           .animate-fadeInUp {
-            animation: fadeInUp 0.8s ease-out forwards;
+            animation: fadeInUp 1s ease-out forwards;
+          }
+
+          .animate-slideInRight {
+            animation: slideInRight 1s ease-out forwards;
+          }
+
+          .animate-slideInLeft {
+            animation: slideInLeft 1s ease-out forwards;
+          }
+
+          .animate-scaleIn {
+            animation: scaleIn 0.8s ease-out forwards;
           }
 
           .animation-delay-200 {
-            animation-delay: 0.2s;
+            animation-delay: 0.25s;
             opacity: 0;
           }
 
           .animation-delay-400 {
-            animation-delay: 0.4s;
+            animation-delay: 0.5s;
             opacity: 0;
           }
 
           .animation-delay-600 {
-            animation-delay: 0.6s;
+            animation-delay: 0.75s;
             opacity: 0;
+          }
+
+          .animation-delay-800 {
+            animation-delay: 1s;
+            opacity: 0;
+          }
+
+          /* Additional smooth transitions */
+          .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          }
+
+          /* Custom easing for better animations */
+          .ease-smooth {
+            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
           }
         `}</style>
       </div>
@@ -348,9 +508,9 @@ const ImageCarousel = () => {
     text-white text-center 
     text-sm max-[375px]:text-xs 
     sm:text-lg md:text-2xl lg:text-3xl xl:text-3xl 
-    tracking-tight sm:tracking-[0.05em] 
-    leading-snug break-words font-gotham font-light
+   
   "
+            style={{ fontFamily: "GothamLight" }}
           >
             ARCHITECTURE &nbsp;&nbsp;||&nbsp;&nbsp; INTERIORS
             &nbsp;&nbsp;||&nbsp;&nbsp; PREMIUM HOMES

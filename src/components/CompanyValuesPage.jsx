@@ -29,7 +29,10 @@ const CompanyValuesPage = () => {
 
   useLayoutEffect(() => {
     // respect reduced motion preference
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       return;
     }
 
@@ -43,16 +46,30 @@ const CompanyValuesPage = () => {
         start: "top 90%",
         toggleActions: "play none none reverse",
       };
-      const tl = gsap.timeline({ scrollTrigger: redSt, defaults: { ease: "power3.out" } });
+      const tl = gsap.timeline({
+        scrollTrigger: redSt,
+        defaults: { ease: "power3.out" },
+      });
 
       // container subtle entrance
-      tl.from(redSectionRef.current, { y: 18, opacity: 0, duration: 0.6, immediateRender: false });
+      tl.from(redSectionRef.current, {
+        y: 18,
+        opacity: 0,
+        duration: 0.6,
+        immediateRender: false,
+      });
 
       // header pop
       if (headerRef.current) {
         tl.from(
           headerRef.current,
-          { y: 8, opacity: 0, duration: 0.6, ease: "power2.out", immediateRender: false },
+          {
+            y: 8,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            immediateRender: false,
+          },
           "-=0.45"
         );
       }
@@ -62,18 +79,42 @@ const CompanyValuesPage = () => {
       if (vals.length) {
         // reveal center slightly earlier for balance
         const order = vals.length === 3 ? [vals[1], vals[0], vals[2]] : vals;
-        tl.from(order, { y: 20, opacity: 0, duration: 0.7, stagger: 0.12, immediateRender: false }, "-=0.35");
+        tl.from(
+          order,
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            immediateRender: false,
+          },
+          "-=0.35"
+        );
       }
 
       // small highlight on separators
       const seps = (separatorsRef.current || []).filter(Boolean);
       if (seps.length) {
-        tl.from(seps, { scaleX: 0, transformOrigin: "left center", duration: 0.45, stagger: 0.08, immediateRender: false }, "-=0.45");
+        tl.from(
+          seps,
+          {
+            scaleX: 0,
+            transformOrigin: "left center",
+            duration: 0.45,
+            stagger: 0.08,
+            immediateRender: false,
+          },
+          "-=0.45"
+        );
       }
 
       // How we work header (big, right aligned) reveal
       if (howWeWorkRef.current) {
-        tl.from(howWeWorkRef.current, { x: 28, opacity: 0, duration: 0.7, immediateRender: false }, "-=0.35");
+        tl.from(
+          howWeWorkRef.current,
+          { x: 28, opacity: 0, duration: 0.7, immediateRender: false },
+          "-=0.35"
+        );
       }
 
       // --- Process cards (Listen / Design / Deliver) ---
@@ -82,12 +123,22 @@ const CompanyValuesPage = () => {
         start: "top 80%",
         toggleActions: "play none none reverse",
       };
-      const pTL = gsap.timeline({ scrollTrigger: procSt, defaults: { ease: "power3.out" } });
+      const pTL = gsap.timeline({
+        scrollTrigger: procSt,
+        defaults: { ease: "power3.out" },
+      });
 
       // reveal each process card with stagger and slight scale
       const procs = (processRefs.current || []).filter(Boolean);
       if (procs.length) {
-        pTL.from(procs, { y: 22, opacity: 0, scale: 0.995, duration: 0.7, stagger: 0.14, immediateRender: false });
+        pTL.from(procs, {
+          y: 22,
+          opacity: 0,
+          scale: 0.995,
+          duration: 0.7,
+          stagger: 0.14,
+          immediateRender: false,
+        });
       }
 
       // subtle breathing on process cards for large screens
@@ -115,9 +166,15 @@ const CompanyValuesPage = () => {
 
       // store small cleanup on root DOM node so outer cleanup can access if needed
       triggerRoot.__localCleanup = () => {
-        try { tl.kill(); } catch(e) {}
-        try { pTL.kill(); } catch(e) {}
-        try { breath.kill(); } catch(e) {}
+        try {
+          tl.kill();
+        } catch (e) {}
+        try {
+          pTL.kill();
+        } catch (e) {}
+        try {
+          breath.kill();
+        } catch (e) {}
         window.removeEventListener("resize", onResize);
         window.removeEventListener("load", refresh);
         window.removeEventListener("resize", refresh);
@@ -128,27 +185,41 @@ const CompanyValuesPage = () => {
     return () => {
       const triggerRoot = rootRef.current;
       if (triggerRoot && triggerRoot.__localCleanup) {
-        try { triggerRoot.__localCleanup(); } catch (e) {}
+        try {
+          triggerRoot.__localCleanup();
+        } catch (e) {}
         delete triggerRoot.__localCleanup;
       }
-      try { ctx.revert(); } catch (e) {}
+      try {
+        ctx.revert();
+      } catch (e) {}
       // kill any leftover ScrollTriggers related to this root
       ScrollTrigger.getAll().forEach((s) => {
-        if (s.trigger && rootRef.current && s.trigger instanceof Element && rootRef.current.contains(s.trigger)) {
-          try { s.kill(); } catch (e) {}
+        if (
+          s.trigger &&
+          rootRef.current &&
+          s.trigger instanceof Element &&
+          rootRef.current.contains(s.trigger)
+        ) {
+          try {
+            s.kill();
+          } catch (e) {}
         }
       });
     };
   }, []);
 
   return (
-    <div className="min-h-screen bg-white" ref={rootRef}>
+    <div className="min-h-screen bg-white " ref={rootRef}>
       {/* Values Section */}
-      <div className="bg-[#BE4B50] text-white py-16 pb-40 px-8 relative" ref={redSectionRef}>
+      <div
+        className="bg-[#C34147] text-white py-32  pb-60 px-8 relative"
+        ref={redSectionRef}
+      >
         <div className="max-w-6xl mx-auto">
           {/* Our Values Header */}
           <div className="text-left mb-12" ref={headerRef}>
-            <h1 className="text-4xl md:text-5xl font-light tracking-wider">
+            <h1 className="text-4xl md:text-7xl  font-light tracking-wider">
               OUR <span className="font-gotham">VALUES</span>
             </h1>
           </div>
@@ -156,69 +227,94 @@ const CompanyValuesPage = () => {
           {/* Values Grid */}
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {/* Promise-Driven Delivery */}
-            <div className="text-left relative pb-6 md:pb-0" ref={(el) => setValueRef(el, 0)}>
+            <div
+              className="text-left relative pb-6 md:pb-0"
+              ref={(el) => setValueRef(el, 0)}
+            >
               {/* Vertical line (desktop) */}
-              <div className="hidden md:block absolute top-0 right-0 h-full border-r-2 border-gray-300"></div>
-              <div className="hidden md:block absolute top-0 right-2 h-full border-r-2 border-gray-300"></div>
+              <div className="hidden md:block absolute top-0 right-0 h-full border-r border-gray-300"></div>
+              <div className="hidden md:block absolute top-0 right-1 h-full border-r border-gray-300"></div>
 
               {/* Horizontal line (mobile) */}
-              <div className="block md:hidden absolute bottom-0 left-0 w-full border-b-2 border-gray-300"></div>
-              <div className="block md:hidden absolute bottom-2 left-0 w-full border-b-2 border-gray-300"></div>
+              <div className="block md:hidden absolute bottom-0 left-0 w-full border-b border-gray-300"></div>
+              <div className="block md:hidden absolute bottom-1 left-0 w-full border-b border-gray-300"></div>
 
-              <h2 className="text-3xl font-light mb-12 tracking-wide">
-                PROMISE-DRIVEN
+
+              <h2 className="text-4xl font-light mb-12 tracking-wide">
+                <span className="tracking-wider">PROMISE-DRIVEN</span>
                 <br />
-                <span className="font-gotham">DELIVERY</span>
+                <span className="font-gotham font-semibold">DELIVERY</span>
               </h2>
-              <p className="text-sm leading-relaxed opacity-90 pr-8  md:pr-4 font-gotham font-semibold">
-                Homes that embrace your <br /> everyday rituals, from morning <br /> light in
-                the kitchen to quiet corners <br /> made for unwinding.
+              <p className="text-base  opacity-90 pr-8 font-gotham font-medium  md:pr-4 tracking-wider ">
+                Homes that embrace your <br /> everyday rituals, from morning{" "}
+                <br /> light in the kitchen to quiet corners <br /> made for
+                unwinding.
               </p>
             </div>
 
             {/* Human-First Design */}
-            <div className="text-left relative pb-6 md:pb-0" ref={(el) => setValueRef(el, 1)}>
+            <div
+              className="text-left relative pb-6 md:pb-0"
+              ref={(el) => setValueRef(el, 1)}
+            >
               {/* Vertical line (desktop) */}
-              <div className="hidden md:block absolute top-0 right-0 h-full border-r-2 border-gray-300"></div>
-              <div className="hidden md:block absolute top-0 right-2 h-full border-r-2 border-gray-300"></div>
+              <div className="hidden md:block absolute top-0 right-0 h-full border-r border-gray-300"></div>
+              <div className="hidden md:block absolute top-0 right-1 h-full border-r border-gray-300"></div>
 
               {/* Horizontal line (mobile) */}
-              <div className="block md:hidden absolute bottom-0 left-0 w-full border-b-2 border-gray-300"></div>
-              <div className="block md:hidden absolute bottom-2 left-0 w-full border-b-2 border-gray-300"></div>
+              <div className="block md:hidden absolute bottom-0 left-0 w-full border-b border-gray-300"></div>
+              <div className="block md:hidden absolute bottom-1 left-0 w-full border-b border-gray-300"></div>
 
-              <h2 className="text-3xl font-light mb-12 tracking-wide ">
-                HUMAN-FIRST
+              <h2 className="text-4xl font-light mb-12 tracking-wide ">
+                <span className="tracking-wider font-gothambold font-thin">HUMAN-FIRST</span>
                 <br />
-                <span className="font-gotham">DESIGN</span>
+                <span className="font-gotham font-semibold">DESIGN</span>
               </h2>
-              <p className="text-sm leading-relaxed opacity-90 font-gotham font-semibold ">
-                Clear conversations, <br /> honest timelines, and a journey <br /> without
-                hidden turns — so you  <br />always know where you stand.
+
+
+              <p className="text-base  opacity-90 pr-8 font-gotham font-medium  md:pr-4 tracking-wider  ">
+                Clear conversations, <br /> honest timelines, and a journey{" "}
+                <br /> without hidden turns — so you <br />
+                always know where you stand.
               </p>
             </div>
 
             {/* Quality That Lasts */}
-            <div className="text-left relative" ref={(el) => setValueRef(el, 2)}>
-              <h2 className="text-3xl font-light mb-12 tracking-wide">
-                <span className="font-gotham">QUALITY</span>
+            <div
+              className="text-left relative"
+              ref={(el) => setValueRef(el, 2)}
+            >
+              <h2 className="text-4xl font-light mb-12">
+                <span className="font-gotham font-semibold">QUALITY</span>
                 <br />
-                THAT LASTS
+                <span className="tracking-wider">THAT LASTS</span>
               </h2>
-              <p className="text-sm leading-relaxed opacity-90 pr-8 md:pr- font-gotham font-light">
-                Craftsmanship that lingers <br /> in the little things: solid doors <br />
-                that close softly, finishes that age <br /> with grace, and spaces
-                built to  <br /> hold generations of memories.
+
+              <p className="text-base  opacity-90 pr-8 font-gotham font-medium  md:pr-4 tracking-wider t">
+                Craftsmanship that lingers <br /> in the little things: solid
+                doors <br />
+                that close softly, finishes that age <br /> with grace, and
+                spaces built to <br /> hold generations of memories.
               </p>
             </div>
           </div>
 
           {/* Separator Lines */}
-          <div className="border-t border-white border-opacity-30 mb-1" ref={(el) => setSeparatorRef(el, 0)}></div>
-          <div className="border-t border-white border-opacity-30 mb-1" ref={(el) => setSeparatorRef(el, 1)}></div>
-          <div className="border-t border-white border-opacity-30 mb-12" ref={(el) => setSeparatorRef(el, 2)}></div>
+          <div
+            className="border-t border-white border-opacity-30 mb-1"
+            ref={(el) => setSeparatorRef(el, 0)}
+          ></div>
+          <div
+            className="border-t border-white border-opacity-30 mb-1"
+            ref={(el) => setSeparatorRef(el, 1)}
+          ></div>
+          <div
+            className="border-t border-white border-opacity-30 mb-12"
+            ref={(el) => setSeparatorRef(el, 2)}
+          ></div>
 
           {/* How We Work Header */}
-          <div className="text-right " ref={howWeWorkRef}>
+          <div className="text-right " ref={howWeWorkRef} id="offer">
             <h1 className="text-4xl md:text-7xl font-light tracking-wider ">
               HOW WE <span className="font-gotham">WORK</span>
             </h1>
@@ -227,7 +323,7 @@ const CompanyValuesPage = () => {
       </div>
 
       {/* Process Section - overlap half red half white */}
-      <div className="relative -mt-32 px-8">
+      <div className="relative -mt-56 px-8">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
           {/* Listen */}
           <div

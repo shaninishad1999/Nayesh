@@ -10,10 +10,9 @@ gsap.registerPlugin(ScrollTrigger);
 const Footer = () => {
   const rootRef = useRef(null);
   const logoRef = useRef(null);
-  const colRefs = useRef([]); // for the 3 columns
+  const colRefs = useRef([]); // for the 2 columns
   const copyrightRef = useRef(null);
 
-  // helpers to set refs in map
   const setColRef = (el, idx) => {
     if (el) colRefs.current[idx] = el;
   };
@@ -27,19 +26,25 @@ const Footer = () => {
       return;
     }
 
+    // Timeline with scrollTrigger on the timeline (play once when it enters)
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: rootRef.current,
         start: "top 85%",
-        toggleActions: "play none none reverse",
+        toggleActions: "play none none none", // play once, don't reverse on leave
+        // once: true, // optionally you can use `once: true` too
       },
       defaults: { ease: "power3.out" },
     });
 
-    // container subtle entrance
-    tl.from(rootRef.current, { y: 18, opacity: 0, duration: 0.6 });
+    // Use immediateRender: false to avoid GSAP setting starting styles immediately
+    tl.from(rootRef.current, {
+      y: 18,
+      opacity: 0,
+      duration: 0.6,
+      immediateRender: false,
+    });
 
-    // logo pop
     tl.from(
       logoRef.current,
       {
@@ -47,50 +52,53 @@ const Footer = () => {
         opacity: 0,
         duration: 0.6,
         transformOrigin: "center center",
+        immediateRender: false,
       },
       "-=0.45"
     );
 
-    // columns fade-up stagger
     tl.from(
       colRefs.current,
-      { y: 18, opacity: 0, duration: 0.6, stagger: 0.12 },
+      { y: 18, opacity: 0, duration: 0.6, stagger: 0.12, immediateRender: false },
       "-=0.45"
     );
 
-    // copyright slide in
     tl.from(
       copyrightRef.current,
-      { y: 12, opacity: 0, duration: 0.5 },
+      { y: 12, opacity: 0, duration: 0.5, immediateRender: false },
       "-=0.35"
     );
 
-    // subtle breathing pulse for logo on large screens
+    // Logo pulse: pause on small screens. Only play when not paused.
+    const shouldPausePulse = window.innerWidth < 1024;
     const logoPulse = gsap.to(logoRef.current, {
       scale: 1.02,
       duration: 2.8,
       yoyo: true,
       repeat: -1,
       ease: "sine.inOut",
-      paused: window.innerWidth < 1024,
+      paused: shouldPausePulse,
     });
-    logoPulse.play();
+
+    if (!shouldPausePulse) {
+      logoPulse.play();
+    }
 
     return () => {
+      // cleanup
+      if (tl.scrollTrigger) tl.scrollTrigger.kill();
       tl.kill();
       logoPulse.kill();
-      if (tl.scrollTrigger) tl.scrollTrigger.kill();
     };
   }, []);
 
   return (
     <footer ref={rootRef} className="bg-[#2E2E2E] text-white py-12 px-8">
       <div className="max-w-6xl mx-auto">
-        {/* Main Grid */}
+        {/* Main Flex */}
         <div className="flex flex-col md:flex-row justify-between gap-12">
           {/* Logo & Socials */}
           <div className="flex flex-col items-start justify-between">
-            <div></div>
             <div>
               <div className="mb-8">
                 <img
@@ -117,8 +125,8 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
+          {/* Links (About + Other) */}
+          <div className="grid grid-cols-2 md:flex md:space-x-16 text-left">
             {/* About */}
             <div ref={(el) => setColRef(el, 0)} className="font-gotham">
               <h3 className="text-2xl font-semibold mb-6 tracking-wider">
@@ -168,61 +176,12 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Services */}
-            <div ref={(el) => setColRef(el, 1)} className="font-gotham">
-              <h3 className="text-xl font-semibold mb-6 tracking-wider">
-                SERVICES
-              </h3>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
-                  >
-                    How to Order
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
-                  >
-                    Our Products
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
-                  >
-                    Order Status
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
-                  >
-                    Promo
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
-                  >
-                    Payment Method
-                  </a>
-                </li>
-              </ul>
-            </div>
-
             {/* Other */}
-            <div ref={(el) => setColRef(el, 2)}>
-              <h3 className="text-xl font-semibold mb-6 tracking-wider font-gotham">
+            <div ref={(el) => setColRef(el, 1)} className="font-gotham">
+              <h3 className="text-2xl font-semibold mb-6 tracking-wider">
                 OTHER
               </h3>
-              <ul className="space-y-3 font-gotham">
+              <ul className="space-y-3">
                 <li>
                   <a
                     href="#"

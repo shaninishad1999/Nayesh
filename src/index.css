@@ -47,3 +47,36 @@
 }
 
 
+/* Gotham Book */
+@font-face {
+  font-family: "GothamBook";
+  src: url("./assets/fonts/GOTHAM-BOOK_1.OTF") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Gotham Medium */
+@font-face {
+  font-family: "GothamMedium";
+  src: url("./assets/fonts/Gotham Medium_0.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Gotham Light */
+@font-face {
+  font-family: "GothamLight";
+  src: url("./assets/fonts/Gotham-Light_0.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Myriad Pro Regular */
+@font-face {
+  font-family: "MyriadPro";
+  src: url("./assets/fonts/MyriadPro-Regular_0.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+
