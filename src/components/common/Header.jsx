@@ -278,7 +278,7 @@ const Header = () => {
 
       {/* Desktop Full-Screen Modal Menu */}
       {isDesktopMenuOpen && (
-        <div className="fixed inset-0 h-screen w-screen bg-white/95 flex flex-col font-gotham font-light items-center justify-center z-[999]">
+        <div className="fixed inset-0 h-screen w-screen bg-white/95 flex flex-col font-gotham font-light items-center justify-center z-[100]">
           <button
             className="absolute top-6 right-6 text-gray-900 hover:text-blue-600 transition-colors duration-300 font-gotham font-light"
             onClick={() => setIsDesktopMenuOpen(false)}

@@ -240,7 +240,7 @@ const CompanyValuesPage = () => {
               <div className="block md:hidden absolute bottom-1 left-0 w-full border-b border-gray-300"></div>
 
 
-              <h2 className="text-4xl font-light mb-12 tracking-wide">
+              <h2 className="md:text-4xl  lg:text-4xl text-xl font-light mb-12 tracking-wide">
                 <span className="tracking-wider">PROMISE-DRIVEN</span>
                 <br />
                 <span className="font-gotham font-semibold">DELIVERY</span>
@@ -265,7 +265,7 @@ const CompanyValuesPage = () => {
               <div className="block md:hidden absolute bottom-0 left-0 w-full border-b border-gray-300"></div>
               <div className="block md:hidden absolute bottom-1 left-0 w-full border-b border-gray-300"></div>
 
-              <h2 className="text-4xl font-light mb-12 tracking-wide ">
+              <h2 className="md:text-4xl  lg:text-4xl text-xl font-light mb-12 tracking-wide ">
                 <span className="tracking-wider font-gothambold font-thin">HUMAN-FIRST</span>
                 <br />
                 <span className="font-gotham font-semibold">DESIGN</span>
@@ -284,7 +284,7 @@ const CompanyValuesPage = () => {
               className="text-left relative"
               ref={(el) => setValueRef(el, 2)}
             >
-              <h2 className="text-4xl font-light mb-12">
+              <h2 className="md:text-4xl  lg:text-4xl text-xl font-light mb-12 tracking-wide">
                 <span className="font-gotham font-semibold">QUALITY</span>
                 <br />
                 <span className="tracking-wider">THAT LASTS</span>
