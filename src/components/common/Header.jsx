@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import menuIcon from "../../assets/menuIcon.png";
 import colorLogo from "../../assets/colorLogo.png";
 import img1 from "../../assets/crousalImg/1.jpg";
 import img2 from "../../assets/crousalImg/2.jpg";
 import img3 from "../../assets/crousalImg/3.jpg";
+
 const Header = () => {
+  const navigate = useNavigate();
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,24 +38,22 @@ const Header = () => {
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
+
   const handleLogoClick = (e) => {
     // If already on home, scroll to top smoothly
     if (location.pathname === "/") {
-      // prevent default Link behavior (no navigation) and smooth-scroll to top
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
-      // also close any open menus
       setIsDesktopMenuOpen(false);
       setIsMobileMenuOpen(false);
     } else {
-      // otherwise let react-router navigate to home
-      // no need to preventDefault; but to be explicit, use navigate
       e.preventDefault();
       navigate("/");
       setIsDesktopMenuOpen(false);
       setIsMobileMenuOpen(false);
     }
   };
+
   const menuItems = [
     { id: "founders", path: "/founders", label: "FROM THE FOUNDERS" },
     { id: "ethos", path: "/ethos", label: "OUR ETHOS" },
@@ -99,7 +99,6 @@ const Header = () => {
     >
       <div className="container mx-auto flex justify-between items-center px-4 sm:px-6">
         <div className="ml-2 sm:ml-4">
-          {/* Wrap logo in Link to navigate to home ("/") */}
           <Link to="/" aria-label="Go to home" onClick={handleLogoClick}>
             <img
               src={isScrolled ? colorLogo : logo}
@@ -335,18 +334,18 @@ const ImageCarousel = () => {
         </div>
 
         {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="absolute inset-0 bg-black/20" />
 
         {/* Text Overlay - Right Side with enhanced animations */}
         <div className="absolute inset-0 flex items-center justify-end">
           <div className="text-right ">
             {/* First word - First Line with slide animation */}
             <h1
-              className={`text-white text-3xl font-gotham leading-none sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl uppercase transition-all duration-700 ease-out transform ${
+              className={`text-white font-gotham leading-none uppercase transition-all duration-700 ease-out transform ${
                 isTransitioning
                   ? "translate-x-full opacity-0"
                   : "translate-x-0 opacity-100 animate-slideInRight"
-              }`}
+              } text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl`}
             >
               {firstWord}
             </h1>
@@ -354,11 +353,11 @@ const ImageCarousel = () => {
             {/* Remaining words - Second Line */}
             {remainingWords && (
               <h1
-                className={`text-white text-3xl font-gotham sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl uppercase leading-none transition-all duration-700 ease-out transform ${
+                className={`text-white font-gotham leading-none uppercase transition-all duration-700 ease-out transform ${
                   isTransitioning
                     ? "translate-x-full opacity-0"
                     : "translate-x-0 opacity-100 animate-slideInRight animation-delay-200"
-                }`}
+                } text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl`}
               >
                 {remainingWords}
               </h1>
@@ -366,11 +365,11 @@ const ImageCarousel = () => {
 
             {/* Subheading - First Row */}
             <p
-              className={`text-white/90 text-base sm:text-lg font-gotham uppercase mb-3 md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed transition-all duration-700 ease-out transform ${
+              className={`text-white/90 font-gotham uppercase mb-3 md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed transition-all duration-700 ease-out transform ${
                 isTransitioning
                   ? "translate-y-8 opacity-0"
                   : "translate-y-0 opacity-100 animate-fadeInUp animation-delay-400"
-              }`}
+              } text-sm sm:text-base md:text-lg`}
             >
               {firstRow}
             </p>
@@ -378,11 +377,11 @@ const ImageCarousel = () => {
             {/* Subheading - Second Row */}
             {secondRow && (
               <p
-                className={`text-white/90 text-base sm:text-lg font-gotham uppercase md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed transition-all duration-700 ease-out transform ${
+                className={`text-white/90 font-gotham uppercase md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed transition-all duration-700 ease-out transform ${
                   isTransitioning
                     ? "translate-y-8 opacity-0"
                     : "translate-y-0 opacity-100 animate-fadeInUp animation-delay-600"
-                }`}
+                } text-sm sm:text-base md:text-lg`}
               >
                 {secondRow}
               </p>
@@ -391,11 +390,14 @@ const ImageCarousel = () => {
         </div>
 
         {/* Dots Navigation */}
-        <div className="absolute bottom-32 sm:bottom-28 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-20">
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-20"
+             style={{ bottom: "20px" /* larger bottom on mobile to avoid tagline overlap; overridden by media queries in Tailwind */ }}
+        >
           {images.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
               className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 transform hover:scale-125 ${
                 index === currentIndex
                   ? "bg-white scale-125 shadow-lg"
@@ -497,19 +499,26 @@ const ImageCarousel = () => {
           .ease-smooth {
             transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
           }
+
+          /* small-screen adjustments for the dots and tagline using raw CSS fallback */
+          @media (max-width: 640px) {
+            .dots-mobile-adjust {
+              bottom: 140px;
+            }
+          }
         `}</style>
       </div>
 
-      {/* Bottom Tagline Bar */}
-      <div className="absolute bottom-0 left-0 w-full bg-[#333333] py-3 sm:py-6">
-        <div className="container mx-auto px-2 sm:px-6">
+      {/* Bottom Tagline Bar - made responsive: wraps text on small screens */}
+      <div className="relative w-full bg-[#333333] py-3 sm:py-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <p
             className="
-    text-white text-center 
-    text-sm max-[375px]:text-xs 
-    sm:text-lg md:text-2xl lg:text-3xl xl:text-3xl 
-   
-  "
+              text-white text-center
+              text-xs sm:text-sm md:text-lg lg:text-2xl
+              leading-tight
+              whitespace-normal break-words
+              "
             style={{ fontFamily: "GothamLight" }}
           >
             ARCHITECTURE &nbsp;&nbsp;||&nbsp;&nbsp; INTERIORS

@@ -59,7 +59,13 @@ const Footer = () => {
 
     tl.from(
       colRefs.current,
-      { y: 18, opacity: 0, duration: 0.6, stagger: 0.12, immediateRender: false },
+      {
+        y: 18,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.12,
+        immediateRender: false,
+      },
       "-=0.45"
     );
 
@@ -93,21 +99,24 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer ref={rootRef} className="bg-[#2E2E2E] text-white py-12 px-8">
+    <footer ref={rootRef} className="bg-[#2E2E2E] text-white py-12 px-8 pt-32">
       <div className="max-w-6xl mx-auto">
         {/* Main Flex */}
         <div className="flex flex-col md:flex-row justify-between gap-12">
           {/* Logo & Socials */}
-          <div className="flex flex-col items-start justify-between">
-            <div>
-              <div className="mb-8">
-                <img
-                  ref={logoRef}
-                  src={logo}
-                  alt="Nayash Logo"
-                  className="w-56"
-                />
-              </div>
+          {/* Logo & Socials */}
+          <div className="flex flex-col md:justify-between">
+            {/* Logo Bottom (desktop me niche push ho jayega) */}
+            <div className="mt-8 md:mt-auto">
+              <img
+                ref={logoRef}
+                src={logo}
+                alt="Nayash Logo"
+                className="w-56"
+              />
+            </div>
+            {/* Socials Top (desktop ke liye) */}
+            <div className="mb-8 mt-10 md:mb-0">
               <div className="flex space-x-4">
                 <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-pink-500 hover:scale-110 transition-all duration-300 group">
                   <Instagram className="w-6 h-6 text-gray-800 group-hover:text-white transition-colors duration-300" />
@@ -136,7 +145,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
+                    className="text-white hover:text-white hover:underline text-lg"
                   >
                     History
                   </a>
@@ -144,7 +153,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
+                    className="text-white hover:text-white hover:underline text-lg"
                   >
                     Our Team
                   </a>
@@ -152,7 +161,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
+                    className="text-white hover:text-white hover:underline text-lg"
                   >
                     Brand Guidelines
                   </a>
@@ -160,7 +169,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
+                    className="text-white hover:text-white hover:underline text-lg"
                   >
                     Terms & Conditions
                   </a>
@@ -168,7 +177,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
+                    className="text-white hover:text-white hover:underline text-lg"
                   >
                     Privacy Policy
                   </a>
@@ -185,7 +194,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
+                    className="text-white hover:text-white hover:underline text-lg"
                   >
                     Contact Us
                   </a>
@@ -193,7 +202,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
+                    className="text-white hover:text-white hover:underline text-lg"
                   >
                     Help
                   </a>
@@ -201,7 +210,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="#"
-                    className="text-gray-300 hover:text-white hover:underline text-lg"
+                    className="text-white hover:text-white hover:underline text-lg"
                   >
                     Privacy
                   </a>
