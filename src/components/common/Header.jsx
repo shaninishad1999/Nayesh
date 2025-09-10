@@ -11,40 +11,46 @@ import img3 from "../../assets/crousalImg/3.jpg";
 /* =========================
    IntroSplash Component (SLOWER timings)
    ========================= */
+
 const IntroSplash = ({ onFinish }) => {
-  const splashRef = useRef(null);
+  const splashContainerRef = useRef(null); // container for logo + dots
   const overlayRef = useRef(null);
+  const dotsRef = useRef(null);
 
   useEffect(() => {
     let mounted = true;
-    const splashEl = splashRef.current;
+    const splashContainer = splashContainerRef.current;
     const overlayEl = overlayRef.current;
+    const dotsEl = dotsRef.current;
+    const splashImg = splashContainer?.querySelector("img");
 
-    // slower initial entrance
-    splashEl.style.transform = "translate(-50%, -50%) scale(0.85)";
-    splashEl.style.opacity = "0";
+    // initial entrance (container)
+    splashContainer.style.transform = "translate(-50%, -50%) scale(0.85)";
+    splashContainer.style.opacity = "0";
     requestAnimationFrame(() => {
-      splashEl.style.transition =
+      splashContainer.style.transition =
         "transform 900ms cubic-bezier(.2,.9,.3,1), opacity 700ms ease";
-      splashEl.style.transform = "translate(-50%, -50%) scale(1.02)";
-      splashEl.style.opacity = "1";
+      splashContainer.style.transform = "translate(-50%, -50%) scale(1.02)";
+      splashContainer.style.opacity = "1";
     });
 
-    // SLOWER timings
-    const totalDelay = 1800; // show big logo longer before moving
-    const moveDuration = 1200; // slower move to header
+    // timings
+    const totalDelay = 1800;
+    const moveDuration = 1200;
 
     const timeout1 = setTimeout(() => {
       if (!mounted) return;
       const headerLogo = document.querySelector('img[data-header-logo]');
       if (!headerLogo) {
-        splashEl.style.transition = `opacity 700ms ease, transform 700ms ease`;
-        splashEl.style.opacity = "0";
+        // no header logo: just fade out whole splash
+        splashContainer.style.transition = `opacity 700ms ease, transform 700ms ease`;
+        splashContainer.style.opacity = "0";
         setTimeout(() => onFinish?.(), 780);
         return;
       }
 
-      const splashRect = splashEl.getBoundingClientRect();
+      // compute transform to move container to header logo center
+      const splashRect = splashContainer.getBoundingClientRect();
       const targetRect = headerLogo.getBoundingClientRect();
 
       const splashCenterX = splashRect.left + splashRect.width / 2;
@@ -57,25 +63,42 @@ const IntroSplash = ({ onFinish }) => {
 
       const scale = targetRect.width / splashRect.width;
 
-      splashEl.style.transition = `transform ${moveDuration}ms cubic-bezier(.2,.9,.3,1), opacity ${moveDuration}ms ease`;
-      splashEl.style.transform = `translate(calc(-50% + ${translateX}px), calc(-50% + ${translateY}px)) scale(${scale})`;
+      // move the whole container (logo + dots) to header position
+      splashContainer.style.transition = `transform ${moveDuration}ms cubic-bezier(.2,.9,.3,1), opacity ${moveDuration}ms ease`;
+      splashContainer.style.transform = `translate(calc(-50% + ${translateX}px), calc(-50% + ${translateY}px)) scale(${scale})`;
 
-      // fade overlay a bit slower
+      // fade overlay
       overlayEl.style.transition = `opacity ${moveDuration}ms ease`;
       overlayEl.style.opacity = "0";
 
-      const timeout2 = setTimeout(() => {
+      // After movement completes: hide dots first, then fade logo out (same as before)
+      const afterMoveTimeout = setTimeout(() => {
         if (!mounted) return;
-        // small fade out after move
-        splashEl.style.transition = `opacity 500ms ease, transform 500ms ease`;
-        splashEl.style.opacity = "0";
-        const timeout3 = setTimeout(() => {
-          onFinish?.();
-        }, 520);
-        return () => clearTimeout(timeout3);
+
+        // hide dots quickly (so logo appears "set" without dots)
+        if (dotsEl) {
+          dotsEl.style.transition = "opacity 260ms ease, transform 260ms ease";
+          dotsEl.style.opacity = "0";
+          // optional: slightly translate upward while fading
+          dotsEl.style.transform = "translateY(-6px)";
+        }
+
+        // wait a little so dots finish hiding, then fade the logo/container out (keeps behavior similar to original)
+        const fadeLogoTimeout = setTimeout(() => {
+          if (!mounted) return;
+          splashContainer.style.transition = `opacity 500ms ease, transform 500ms ease`;
+          splashContainer.style.opacity = "0";
+
+          const finishTimeout = setTimeout(() => {
+            onFinish?.();
+          }, 520);
+          return () => clearTimeout(finishTimeout);
+        }, 260 + 40); // 300ms after move end
+
+        return () => clearTimeout(fadeLogoTimeout);
       }, moveDuration + 30);
 
-      return () => clearTimeout(timeout2);
+      return () => clearTimeout(afterMoveTimeout);
     }, totalDelay);
 
     return () => {
@@ -92,30 +115,104 @@ const IntroSplash = ({ onFinish }) => {
         position: "fixed",
         inset: 0,
         zIndex: 99999,
-        background: "#000",
+        background: "#C24040",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         transition: "opacity 600ms ease",
       }}
     >
-      <img
-        ref={splashRef}
-        src={logo}
-        alt="Site logo"
+      {/* Container for logo + dots (use this ref for moving) */}
+      <div
+        ref={splashContainerRef}
         style={{
           position: "absolute",
           left: "50%",
           top: "50%",
           transform: "translate(-50%, -50%) scale(1)",
-          width: "420px", // slightly bigger for dramatic entrance
+          width: "420px",
           height: "auto",
-          objectFit: "contain",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
           willChange: "transform, opacity",
-          filter: "drop-shadow(0 20px 60px rgba(0,0,0,0.5))",
-          borderRadius: "8px",
         }}
-      />
+      >
+        {/* Logo */}
+        <img
+          src={logo}
+          alt="Site logo"
+          style={{
+            width: "420px",
+            height: "auto",
+            objectFit: "contain",
+            filter: "drop-shadow(0 20px 60px rgba(0,0,0,0.5))",
+            borderRadius: "8px",
+            display: "block",
+          }}
+        />
+
+        {/* 3 Dots under logo */}
+      {/* 3 Dots under logo (Reversed order) */}
+<div
+  ref={dotsRef}
+  style={{
+    marginTop: "18px", // space under logo
+    display: "flex",
+    gap: "12px",
+    alignItems: "center",
+    justifyContent: "center",
+    opacity: 0.85,
+    transition: "opacity 260ms ease, transform 260ms ease",
+  }}
+>
+  {/* First (was last) */}
+  <div
+    style={{
+      width: "14px",
+      height: "14px",
+      borderRadius: "50%",
+      background: "#C24040",
+      transformOrigin: "center",
+      animation: "pulseDot 1.6s infinite ease-in-out",
+      animationDelay: "0s",
+    }}
+  />
+  {/* Second */}
+  <div
+    style={{
+      width: "14px",
+      height: "14px",
+      borderRadius: "50%",
+      background: "#cb626b",
+      transformOrigin: "center",
+      animation: "pulseDot 1.6s infinite ease-in-out",
+      animationDelay: "0.25s",
+    }}
+  />
+  {/* Third (was first) */}
+  <div
+    style={{
+      width: "14px",
+      height: "14px",
+      borderRadius: "50%",
+      background: "#f7a7b2",
+      transformOrigin: "center",
+      animation: "pulseDot 1.6s infinite ease-in-out",
+      animationDelay: "0.5s",
+    }}
+  />
+</div>
+
+      </div>
+
+      {/* Dot animation */}
+      <style>{`
+        @keyframes pulseDot {
+          0%, 100% { transform: scale(1); opacity: 0.85; }
+          50% { transform: scale(1.35); opacity: 0.45; }
+        }
+      `}</style>
     </div>
   );
 };
@@ -278,9 +375,9 @@ const Header = () => {
 
       {/* Desktop Full-Screen Modal Menu */}
       {isDesktopMenuOpen && (
-        <div className="fixed inset-0 h-screen w-screen bg-white/95 flex flex-col font-gotham font-light items-center justify-center z-[100]">
+        <div className="fixed inset-0 h-screen w-screen bg-[#C24040]/70 flex flex-col font-gotham font-light items-center justify-center z-[100]">
           <button
-            className="absolute top-6 right-6 text-gray-900 hover:text-blue-600 transition-colors duration-300 font-gotham font-light"
+            className="absolute top-6 right-6 text-gray-300 hover:text-white transition-colors duration-300 font-gotham font-light"
             onClick={() => setIsDesktopMenuOpen(false)}
             aria-label="Close menu"
           >
@@ -294,11 +391,11 @@ const Header = () => {
               <li key={idx}>
                 <button
                   onClick={() => scrollToId(item.id)}
-                  className="relative text-gray-900 text-xl transition-all duration-300 transform hover:scale-110 group font-gotham font-light"
+                  className="relative text-white text-xl transition-all duration-300 transform hover:scale-110 group font-gotham font-light"
                   aria-label={`Go to ${item.label}`}
                 >
                   {item.label}
-                  <span className="absolute left-1/2 -bottom-2 w-0 h-1 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                  <span className="absolute left-1/2 -bottom-2 w-0 h-1 bg-[#f7a7b2] transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                 </button>
               </li>
             ))}
@@ -418,7 +515,7 @@ const ImageCarousel = () => {
         <div className="absolute inset-0 bg-black/20" />
 
         <div className="absolute inset-0 flex items-center justify-end">
-          <div className="text-right ">
+          <div className="text-right px-4">
             <h1
               className={`text-white font-gotham leading-none uppercase transition-all duration-900 ease-out transform ${
                 isTransitioning ? "translate-x-full opacity-0" : "translate-x-0 opacity-100 animate-slideInRight"
@@ -438,7 +535,7 @@ const ImageCarousel = () => {
             )}
 
             <p
-              className={`text-white/90 font-gotham uppercase mb-3 md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed transition-all duration-900 ease-out transform ${
+              className={`text-white/90 font-gotham uppercase mb-0 sm:mb-3 lg:mb-3 md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed transition-all duration-900 ease-out transform ${
                 isTransitioning ? "translate-y-8 opacity-0" : "translate-y-0 opacity-100 animate-fadeInUp animation-delay-400"
               } text-sm sm:text-base md:text-lg`}
             >

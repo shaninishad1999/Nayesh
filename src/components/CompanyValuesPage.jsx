@@ -218,9 +218,10 @@ const CompanyValuesPage = () => {
       >
         <div className="max-w-6xl mx-auto">
           {/* Our Values Header */}
-          <div className="text-left mb-12" ref={headerRef}>
-            <h1 className="text-4xl md:text-7xl  font-light tracking-wider">
-              OUR <span className="font-gotham">VALUES</span>
+          <div className="text-center md:text-left mb-12" ref={headerRef}>
+            <h1 className="text-4xl md:text-7xl tracking-wider">
+              <span className="font-light">OUR</span>{" "}
+              <span className="font-gotham font-extralight">VALUES</span>
             </h1>
           </div>
 
@@ -238,7 +239,6 @@ const CompanyValuesPage = () => {
               {/* Horizontal line (mobile) */}
               <div className="block md:hidden absolute bottom-0 left-0 w-full border-b border-gray-300"></div>
               <div className="block md:hidden absolute bottom-1 left-0 w-full border-b border-gray-300"></div>
-
 
               <h2 className="md:text-4xl  lg:text-4xl text-xl font-light mb-12 tracking-wide">
                 <span className="tracking-wider">PROMISE-DRIVEN</span>
@@ -266,11 +266,12 @@ const CompanyValuesPage = () => {
               <div className="block md:hidden absolute bottom-1 left-0 w-full border-b border-gray-300"></div>
 
               <h2 className="md:text-4xl  lg:text-4xl text-xl font-light mb-12 tracking-wide ">
-                <span className="tracking-wider font-gothambold font-thin">HUMAN-FIRST</span>
+                <span className="tracking-wider font-gothambold font-thin">
+                  HUMAN-FIRST
+                </span>
                 <br />
                 <span className="font-gotham font-semibold">DESIGN</span>
               </h2>
-
 
               <p className="text-base  opacity-90 pr-8 font-gotham font-medium  md:pr-4 tracking-wider  ">
                 Clear conversations, <br /> honest timelines, and a journey{" "}
@@ -314,11 +315,16 @@ const CompanyValuesPage = () => {
           ></div>
 
           {/* How We Work Header */}
-          <div className="text-right " ref={howWeWorkRef} id="offer">
-            <h1 className="text-4xl md:text-7xl font-light tracking-wider ">
-              HOW WE <span className="font-gotham">WORK</span>
-            </h1>
-          </div>
+         <div
+  className="text-center md:text-right"
+  ref={howWeWorkRef}
+  id="offer"
+>
+  <h1 className="text-4xl md:text-7xl font-light tracking-wider">
+    HOW WE <span className="font-gotham">WORK</span>
+  </h1>
+</div>
+
         </div>
       </div>
 

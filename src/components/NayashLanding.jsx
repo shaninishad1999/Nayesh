@@ -134,27 +134,11 @@ export default function NayashLanding() {
   return (
     <div ref={sectionRef} className="min-h-screen bg-gray-50 pt-8 relative">
       {/* Responsive Red Guide Lines - Rotated 180deg */}
-      <div className="pointer-events-none absolute inset-0 z-50 flex items-start justify-center rotate-180">
-        <div className="relative mt-[34vh] sm:mt-[32vh] lg:mt-[40vh] translate-x-6 sm:translate-x-8 lg:translate-x-10">
-          {/* Vertical line */}
-          <div
-            ref={guideVerticalRef}
-            className="h-14 sm:h-20 lg:h-24 w-[2.5px] bg-red-500 mx-auto"
-            style={{ transformOrigin: "top center" }}
-          />
-          {/* Horizontal line (centered on vertical) */}
-          <div
-            ref={guideHorizontalRef}
-            className="h-[2.5px] w-8 sm:w-10 lg:w-12 bg-red-500 absolute left-1/2 -translate-x-1/2 -top-[1.25px]"
-            style={{ transformOrigin: "left center" }}
-          />
-        </div>
-      </div>
 
       {/* Main Content Container */}
-      <div className="max-w-6xl mx-auto px-6 pb-0 lg:px-8 lg:pb-0 py-16">
+      <div className="max-w-6xl mx-auto px-4  sm:px-6 sm:py-16 lg:px-8 lg:pb-0">
         {/* Top Section with Typography and Content */}
-        <div className="grid lg:grid-cols-[auto,1fr] gap-16 lg:gap-28 mb-16 w-full">
+        <div className="grid lg:grid-cols-[auto,1fr] gap-4 lg:gap-28 mb-16 w-full">
           {/* Left Column - Large Typography */}
           <div className="text-center lg:text-left ">
             <span
@@ -178,18 +162,15 @@ export default function NayashLanding() {
           </div>
 
           {/* Right Column - Description Text */}
-          <div
-            ref={rightColRef}
-            className="space-y-8 min-w-0 w-full  "
-          >
-            <div className="space-y-0 text-gray-700 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed text-center sm:text-left w-full">
-              <p className="mb-1 tracking-wider">
+          <div ref={rightColRef} className="space-y-8 min-w-0 w-full">
+            <div className="space-y-0 text-gray-700 pl-4 md:pl-0 lg:pl-0 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed text-left w-full">
+              <p className="mb-1 tracking-wider ">
                 <span className="text-[#c34147] font-gotham font-semibold">
                   Nayash
                 </span>{" "}
                 is more than a name.
               </p>
-              <p className="mb-1 ">
+              <p className="mb-1">
                 It’s the spirit of fresh starts and possibilities.
               </p>
               <p className="mb-1">
@@ -219,6 +200,36 @@ export default function NayashLanding() {
           </div>
         </div>
 
+        <div className="pointer-events-none absolute inset-0 z-50 flex items-start justify-center rotate-180">
+          <div
+            className="
+    relative
+    mt-[65vh]                /* default (mobile / normal) */
+    sm:mt-[60vh]             /* small screens (≥640px) */
+    md:mt-[60vh]             /* medium screens (≥768px) */
+    lg:mt-[60vh]             /* large screens (≥1024px) */
+     xl:mt-[50vh]           /* ≥1280px */
+    2xl:mt-[40vh]          /* ≥1536px */
+    translate-x-4            /* default */
+    sm:translate-x-6         /* small screens */
+    md:translate-x-8         /* medium screens */
+    lg:translate-x-10        /* large screens */
+  "
+          >
+            {/* Vertical line */}
+            <div
+              ref={guideVerticalRef}
+              className="h-12 sm:h-16 md:h-20 lg:h-24 w-[2.5px] bg-red-500 mx-auto"
+              style={{ transformOrigin: "top center" }}
+            />
+            {/* Horizontal line (centered on vertical) */}
+            <div
+              ref={guideHorizontalRef}
+              className="h-[2.5px] w-6 sm:w-8 md:w-10 lg:w-12 bg-red-500 absolute left-1/2 -translate-x-1/2 -top-[1.25px]"
+              style={{ transformOrigin: "left center" }}
+            />
+          </div>
+        </div>
         {/* Hero Image Section */}
         <div className="relative w-full h-48 overflow-hidden shadow-2xl">
           {/* Background Image */}

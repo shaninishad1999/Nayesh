@@ -5,6 +5,7 @@ import logo from "../../assets/logo.png";
 import { BsWhatsapp } from "react-icons/bs";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useNavigate } from "react-router-dom";
 import PrivacyModal from "./PrivacyModal"; // existing
 import TermsModal from "./TermsModal"; // NEW: ensure path is correct
 
@@ -15,6 +16,8 @@ const Footer = () => {
   const logoRef = useRef(null);
   const colRefs = useRef([]);
   const copyrightRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const [isPrivacyOpen, setPrivacyOpen] = useState(false);
   const [isTermsOpen, setTermsOpen] = useState(false);
@@ -96,6 +99,34 @@ const Footer = () => {
     };
   }, []);
 
+  // scrollToId logic - mirrors Header behavior
+  const scrollToId = (id) => {
+    // try to find element on current page
+    const el = document.getElementById(id);
+    if (!el) {
+      // if not present on current page, navigate to home (where sections live)
+      // then attempt to scroll after navigation using a tiny timeout
+      navigate("/");
+      // small delay to allow route render — conservative but simple
+      setTimeout(() => {
+        const target = document.getElementById(id);
+        if (!target) return;
+        const header = document.querySelector("header");
+        const headerOffset = header ? header.offsetHeight : 80;
+        const elementTop = target.getBoundingClientRect().top + window.pageYOffset;
+        const scrollToPosition = Math.max(elementTop - headerOffset - 8, 0);
+        window.scrollTo({ top: scrollToPosition, behavior: "smooth" });
+      }, 120); // 120ms — works in most render cases
+      return;
+    }
+
+    const header = document.querySelector("header");
+    const headerOffset = header ? header.offsetHeight : 80;
+    const elementTop = el.getBoundingClientRect().top + window.pageYOffset;
+    const scrollToPosition = Math.max(elementTop - headerOffset - 8, 0);
+    window.scrollTo({ top: scrollToPosition, behavior: "smooth" });
+  };
+
   const openPrivacy = (e) => {
     e && e.preventDefault();
     setPrivacyOpen(true);
@@ -112,7 +143,7 @@ const Footer = () => {
     <>
       <footer
         ref={rootRef}
-        className="bg-[#2E2E2E] text-white py-12 px-8 pt-32 "
+        className="bg-[#2E2E2E] text-white lg:py-8 md:py-6 py-6 pt-0 sm:pt-0 px-8"
       >
         <div className="max-w-6xl mx-auto">
           {/* Main Flex */}
@@ -145,115 +176,103 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Links (About + Other) */}
-            <div className="grid grid-cols-2 md:flex md:space-x-16 text-left">
+            {/* Links (About + Other) - Fixed mobile layout */}
+            <div className="grid grid-cols-2 md:flex md:space-x-16 gap-x-8 gap-y-6 text-left">
               {/* About */}
-              <div ref={(el) => setColRef(el, 0)} className="font-gotham">
-                <h3 className="text-2xl font-semibold mb-6 tracking-wider">
+              <div
+                ref={(el) => setColRef(el, 0)}
+                className="font-gotham"
+              >
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 tracking-wider">
                   ABOUT
                 </h3>
-                <ul className="space-y-3">
+                <ul className="space-y-2 md:space-y-3">
                   <li>
-                    <a
-                      href="#"
-                      className="text-white hover:text-white hover:underline text-lg"
-                    >
-                      History
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-white hover:text-white hover:underline text-lg"
+                    <button
+                      onClick={() => scrollToId("founders")}
+                      className="text-gray-100 hover:underline text-sm md:text-lg text-left"
                     >
                       Our Team
-                    </a>
+                    </button>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="text-white hover:text-white hover:underline text-lg"
+                    <button
+                      onClick={() => scrollToId("ethos")}
+                      className="text-white hover:text-white hover:underline text-sm md:text-lg text-left"
                     >
                       Brand Guidelines
-                    </a>
+                    </button>
                   </li>
                   <li>
                     {/* TERMS opens modal now */}
-                    <a
-                      href="#terms"
+                    <button
                       onClick={openTerms}
-                      className="text-white hover:text-white hover:underline text-lg"
+                      className="text-white hover:text-white hover:underline text-sm md:text-lg text-left"
                     >
                       Terms &amp; Conditions
-                    </a>
+                    </button>
                   </li>
                   <li>
-                    <a
-                      href="#privacy"
+                    <button
                       onClick={openPrivacy}
-                      className="text-white hover:text-white hover:underline text-lg"
+                      className="text-white hover:text-white hover:underline text-sm md:text-lg text-left"
                     >
                       Privacy Policy
-                    </a>
+                    </button>
                   </li>
                 </ul>
               </div>
 
               {/* Other */}
-              <div ref={(el) => setColRef(el, 1)} className="font-gotham">
-                <h3 className="text-2xl font-semibold mb-6 tracking-wider">
+              <div
+                ref={(el) => setColRef(el, 1)}
+                className="font-gotham "
+              >
+                <h3 className="text-xl text-white md:text-2xl font-semibold mb-4 md:mb-6 tracking-wider">
                   OTHER
                 </h3>
-                <ul className="space-y-3">
+                <ul className="space-y-2 md:space-y-3">
                   <li>
-                    <a
-                      href="#"
-                      className="text-white hover:text-white hover:underline text-lg"
+                    <button
+                      onClick={() => scrollToId("contact")}
+                      className="text-white hover:text-white hover:underline text-sm md:text-lg text-left"
                     >
                       Contact Us
-                    </a>
+                    </button>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="text-white hover:text-white hover:underline text-lg"
+                    <button
+                      onClick={() => scrollToId("offer")}
+                      className="text-white hover:text-white hover:underline text-sm md:text-lg text-left"
                     >
                       Help
-                    </a>
+                    </button>
                   </li>
-                  <li>
-                    <a
-                      href="#privacy"
-                      onClick={openPrivacy}
-                      className="text-white hover:text-white hover:underline text-lg"
-                    >
-                      Privacy
-                    </a>
-                  </li>
+                 
                 </ul>
               </div>
             </div>
           </div>
 
-          {/* Copyright */}
+          {/* Copyright - Fixed color visibility */}
           <div
             ref={copyrightRef}
-            className="mt-12 pt-8 border-t border-gray-100 text-center"
+            className="mt-8 pt-8 border-t border-gray-300 text-center relative "
           >
-            <p className="text-gray-100 text-sm font-gotham font-semibold">
+            <p className="text-red-600 text-sm font-gotham font-semibold">
               © 2025 NAYASH GROUP. All rights reserved.
             </p>
 
             {/* Designed by credit */}
-            <p className="mt-3 text-gray-200 text-xs font-gotham">
+            <p className="mt-3 text-yellow-200 text-xs font-gotham">
               Designed by{" "}
               <a
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white underline"
+                className="text-white hover:underline"
               >
-                Hously Fintech
+                Hously Finntech
               </a>
             </p>
           </div>

@@ -113,9 +113,9 @@ const NayashGroupCard = () => {
   return (
     <div className="max-w-6xl mx-auto p-6 min-h-screen" ref={root} id="ethos">
       {/* Header Text */}
- <div className="mb-8" ref={headerTextRef}>
-  <p
-    className="
+      <div className="mb-8" ref={headerTextRef}>
+        <p
+          className=" px-8 pl-0
       text-gray-700 
       text-sm sm:text-base md:text-lg lg:text-xl 
       leading-6 sm:leading-7 md:leading-relaxed 
@@ -124,17 +124,20 @@ const NayashGroupCard = () => {
       mx-4 sm:mx-0
       whitespace-normal break-words
     "
-  >
-    As <span className="text-[#c34147] font-semibold">Nayash Group</span>,
-    everything we do is shaped by one belief:
-    {/* Conditional line breaks: visible on md+ to keep lines neat on wide screens */}
-    <span className="hidden md:inline"><br /></span>{" "}
-    It's not just about building walls or sketching plans — it's about
-    <span className="hidden md:inline"><br /></span>{" "}
-    creating places that carry comfort, joy, and belonging.
-  </p>
-</div>
-
+        >
+          As <span className="text-[#c34147] font-semibold">Nayash Group</span>,
+          everything we do is shaped by one belief:
+          {/* Conditional line breaks: visible on md+ to keep lines neat on wide screens */}
+          <span className="hidden md:inline">
+            <br />
+          </span>{" "}
+          It's not just about building walls or sketching plans — it's about
+          <span className="hidden md:inline">
+            <br />
+          </span>{" "}
+          creating places that carry comfort, joy, and belonging.
+        </p>
+      </div>
 
       {/* Main Card Layout */}
       <div className="relative bg-white rounded-lg overflow-hidden">
@@ -317,7 +320,7 @@ const NayashGroupCard = () => {
         </div>
 
         {/* Bottom Text */}
-        <div className="p-6 md:p-10 text-center md:text-right bg-white md:mr-[95px]">
+        <div className="pl-0 pr-6 pt-6 pb-6 md:p-10 text-left md:text-right bg-white md:mr-[95px]">
           <p className="text-gray-600 mb-3 text-base md:text-lg font-gotham">
             That's where our identity finds its heart.
           </p>

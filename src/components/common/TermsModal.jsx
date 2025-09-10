@@ -18,7 +18,6 @@ const TermsModal = ({ isOpen, onClose }) => {
     const onKey = (e) => {
       if (e.key === "Escape") onClose();
       if (e.key === "Tab") {
-        // basic focus trap
         const focusable = modalRef.current.querySelectorAll(
           'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
         );
@@ -65,69 +64,97 @@ const TermsModal = ({ isOpen, onClose }) => {
         className="relative z-[1000002] max-w-3xl w-full bg-white text-gray-900 rounded-2xl shadow-2xl p-6 md:p-8 overflow-y-auto max-h-[85vh]"
       >
         <div className="flex items-start justify-between gap-4">
-          <h2 className="text-2xl font-semibold">Terms &amp; Conditions</h2>
+          {/* Gradient heading with only 2 reds */}
+          <h2 className="text-2xl font-extrabold bg-gradient-to-r from-[#c34147] to-[#cb626b] bg-clip-text text-transparent">
+            Terms &amp; Conditions
+          </h2>
           <button
             onClick={onClose}
             aria-label="Close Terms"
-            className="ml-auto rounded-full p-2 hover:bg-gray-100 transition"
+            className="ml-auto rounded-full p-2 bg-[#c34147] hover:bg-[#cb626b] text-white transition"
           >
             ✕
           </button>
         </div>
 
         <div className="mt-4 space-y-4 text-sm leading-relaxed text-gray-800">
-          <p className="font-semibold">Last updated: January 1, 2025</p>
+          <p className="font-semibold text-[#c34147]">
+            Last updated: January 1, 2025
+          </p>
 
           <section>
-            <h3 className="font-semibold mt-2">1. Introduction</h3>
+            <h3 className="font-semibold mt-2 border-b-2 border-[#cb626b] inline-block">
+              1. Introduction
+            </h3>
             <p>
-              These Terms govern your access to and use of the website and services provided by NAYASH GROUP.
-              By using the site you agree to these Terms. If you do not agree, do not use the site.
+              These Terms govern your access to and use of the website and
+              services provided by NAYASH GROUP. By using the site you agree to
+              these Terms. If you do not agree, do not use the site.
             </p>
           </section>
 
           <section>
-            <h3 className="font-semibold mt-2">2. Use of Website</h3>
+            <h3 className="font-semibold mt-2 border-b-2 border-[#c34147] inline-block">
+              2. Use of Website
+            </h3>
             <p>
-              You may use the website only for lawful purposes and in accordance with these Terms. You must not use the site in any
-              way that causes damage or impairment to availability or accessibility.
+              You may use the website only for lawful purposes and in accordance
+              with these Terms. You must not use the site in any way that causes
+              damage or impairment to availability or accessibility.
             </p>
           </section>
 
           <section>
-            <h3 className="font-semibold mt-2">3. Intellectual Property</h3>
+            <h3 className="font-semibold mt-2 border-b-2 border-[#cb626b] inline-block">
+              3. Intellectual Property
+            </h3>
             <p>
-              The content on this site (text, images, logos, designs) is owned or licensed by NAYASH GROUP. Reproduction or redistribution
+              The content on this site (text, images, logos, designs) is owned
+              or licensed by NAYASH GROUP. Reproduction or redistribution
               without permission is prohibited.
             </p>
           </section>
 
           <section>
-            <h3 className="font-semibold mt-2">4. Limitation of Liability</h3>
+            <h3 className="font-semibold mt-2 border-b-2 border-[#c34147] inline-block">
+              4. Limitation of Liability
+            </h3>
             <p>
-              The site is provided "as is" and NAYASH GROUP disclaims warranties to the fullest extent permitted by law.
-              We are not liable for indirect or consequential losses from your use of the site.
+              The site is provided "as is" and NAYASH GROUP disclaims warranties
+              to the fullest extent permitted by law. We are not liable for
+              indirect or consequential losses from your use of the site.
             </p>
           </section>
 
           <section>
-            <h3 className="font-semibold mt-2">5. Changes</h3>
+            <h3 className="font-semibold mt-2 border-b-2 border-[#cb626b] inline-block">
+              5. Changes
+            </h3>
             <p>
-              We may update these Terms from time to time. Material changes will be posted here with an updated "Last updated" date.
+              We may update these Terms from time to time. Material changes will
+              be posted here with an updated "Last updated" date.
             </p>
           </section>
 
           <section>
-            <h3 className="font-semibold mt-2">6. Contact</h3>
+            <h3 className="font-semibold mt-2 border-b-2 border-[#c34147] inline-block">
+              6. Contact
+            </h3>
             <p>
-              Questions about these Terms? Contact us at: <a href="mailto:legal@nayash.example" className="text-indigo-600 hover:underline">nayashdesignstudio@gmail.com</a>
+              Questions about these Terms? Contact us at:{" "}
+              <a
+                href="mailto:legal@nayash.example"
+                className="text-[#cb626b] hover:underline"
+              >
+                nayashdesignstudio@gmail.com
+              </a>
             </p>
           </section>
 
           <div className="mt-6 flex justify-end gap-3">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#c34147] to-[#cb626b] text-white hover:opacity-90 transition"
             >
               Close
             </button>

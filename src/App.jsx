@@ -1,26 +1,23 @@
+// App.jsx (root)
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Layout from "./Layout";
-
-import { Toaster } from "react-hot-toast"; // 👈 yeh import karein
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <Router>
-      {/* Global Toaster for all toast messages */}
       <Toaster
-        position="top-center" // 👈 position set kar sakte hain (top-right, bottom-right, etc.)
+        position="top-center"
+        containerStyle={{ zIndex: 999999 }} // <- very high z-index for toasts
         toastOptions={{
-          duration: 4000, // default 4 sec
-          style: {
-            fontSize: "14px",
-          },
+          duration: 4000,
+          style: { fontSize: "14px" },
         }}
       />
 
-      {/* Layout wrapper (Header + Footer common) */}
       <Layout>
-        {/* yahan aap Routes daaloge */}
+        {/* Routes / pages */}
       </Layout>
     </Router>
   );
