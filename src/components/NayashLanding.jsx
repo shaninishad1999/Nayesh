@@ -236,7 +236,7 @@ export default function NayashLanding() {
           <img
             src={bgImage}
             alt=""
-            className="w-full h-full object-cover object-[40%_40%]"
+            className="w-full h-auto block object-cover object-[40%_40%]"
           />
 
           {/* Centered Text Overlay */}
