@@ -111,7 +111,7 @@ const NayashGroupCard = () => {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 min-h-screen" ref={root} id="ethos">
+    <div className="max-w-6xl mx-auto p-6 " ref={root} id="ethos">
       {/* Header Text */}
       <div className="mb-8" ref={headerTextRef}>
         <p

@@ -210,7 +210,7 @@ const CompanyValuesPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white " ref={rootRef}>
+    <div className=" bg-white " ref={rootRef}>
       {/* Values Section */}
       <div
         className="bg-[#C34147] text-white py-32  pb-60 px-8 relative"

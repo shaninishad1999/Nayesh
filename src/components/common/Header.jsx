@@ -25,7 +25,8 @@ const IntroSplash = ({ onFinish }) => {
     const splashImg = splashContainer?.querySelector("img");
 
     // initial entrance (container)
-    splashContainer.style.transform = "translate(-50%, -50%) scale(0.85)";
+    // NOTE: use a slightly larger initial scale so on mobile it doesn't look tiny
+    splashContainer.style.transform = "translate(-50%, -50%) scale(0.95)";
     splashContainer.style.opacity = "0";
     requestAnimationFrame(() => {
       splashContainer.style.transition =
@@ -42,14 +43,12 @@ const IntroSplash = ({ onFinish }) => {
       if (!mounted) return;
       const headerLogo = document.querySelector('img[data-header-logo]');
       if (!headerLogo) {
-        // no header logo: just fade out whole splash
         splashContainer.style.transition = `opacity 700ms ease, transform 700ms ease`;
         splashContainer.style.opacity = "0";
         setTimeout(() => onFinish?.(), 780);
         return;
       }
 
-      // compute transform to move container to header logo center
       const splashRect = splashContainer.getBoundingClientRect();
       const targetRect = headerLogo.getBoundingClientRect();
 
@@ -61,29 +60,24 @@ const IntroSplash = ({ onFinish }) => {
       const translateX = targetCenterX - splashCenterX;
       const translateY = targetCenterY - splashCenterY;
 
-      const scale = targetRect.width / splashRect.width;
+      // compute scale but clamp to a reasonable range so mobile -> header movement isn't extreme
+      let scale = targetRect.width / splashRect.width;
+      scale = Math.max(0.45, Math.min(scale, 1.2)); // clamp between 0.45 and 1.2
 
-      // move the whole container (logo + dots) to header position
       splashContainer.style.transition = `transform ${moveDuration}ms cubic-bezier(.2,.9,.3,1), opacity ${moveDuration}ms ease`;
       splashContainer.style.transform = `translate(calc(-50% + ${translateX}px), calc(-50% + ${translateY}px)) scale(${scale})`;
 
-      // fade overlay
       overlayEl.style.transition = `opacity ${moveDuration}ms ease`;
       overlayEl.style.opacity = "0";
 
-      // After movement completes: hide dots first, then fade logo out (same as before)
       const afterMoveTimeout = setTimeout(() => {
         if (!mounted) return;
-
-        // hide dots quickly (so logo appears "set" without dots)
         if (dotsEl) {
           dotsEl.style.transition = "opacity 260ms ease, transform 260ms ease";
           dotsEl.style.opacity = "0";
-          // optional: slightly translate upward while fading
           dotsEl.style.transform = "translateY(-6px)";
         }
 
-        // wait a little so dots finish hiding, then fade the logo/container out (keeps behavior similar to original)
         const fadeLogoTimeout = setTimeout(() => {
           if (!mounted) return;
           splashContainer.style.transition = `opacity 500ms ease, transform 500ms ease`;
@@ -93,7 +87,7 @@ const IntroSplash = ({ onFinish }) => {
             onFinish?.();
           }, 520);
           return () => clearTimeout(finishTimeout);
-        }, 260 + 40); // 300ms after move end
+        }, 300);
 
         return () => clearTimeout(fadeLogoTimeout);
       }, moveDuration + 30);
@@ -130,7 +124,8 @@ const IntroSplash = ({ onFinish }) => {
           left: "50%",
           top: "50%",
           transform: "translate(-50%, -50%) scale(1)",
-          width: "420px",
+          // responsive width: min(420px, 80vw) makes it larger on small screens
+          width: "min(420px, 80vw)",
           height: "auto",
           display: "flex",
           flexDirection: "column",
@@ -143,7 +138,8 @@ const IntroSplash = ({ onFinish }) => {
           src={logo}
           alt="Site logo"
           style={{
-            width: "420px",
+            width: "100%",      // fill the container responsively
+            maxWidth: "420px",  // don't exceed original design
             height: "auto",
             objectFit: "contain",
             filter: "drop-shadow(0 20px 60px rgba(0,0,0,0.5))",
@@ -152,58 +148,53 @@ const IntroSplash = ({ onFinish }) => {
           }}
         />
 
-        {/* 3 Dots under logo */}
-      {/* 3 Dots under logo (Reversed order) */}
-<div
-  ref={dotsRef}
-  style={{
-    marginTop: "18px", // space under logo
-    display: "flex",
-    gap: "12px",
-    alignItems: "center",
-    justifyContent: "center",
-    opacity: 0.85,
-    transition: "opacity 260ms ease, transform 260ms ease",
-  }}
->
-  {/* First (was last) */}
-  <div
-    style={{
-      width: "14px",
-      height: "14px",
-      borderRadius: "50%",
-      background: "#C24040",
-      transformOrigin: "center",
-      animation: "pulseDot 1.6s infinite ease-in-out",
-      animationDelay: "0s",
-    }}
-  />
-  {/* Second */}
-  <div
-    style={{
-      width: "14px",
-      height: "14px",
-      borderRadius: "50%",
-      background: "#cb626b",
-      transformOrigin: "center",
-      animation: "pulseDot 1.6s infinite ease-in-out",
-      animationDelay: "0.25s",
-    }}
-  />
-  {/* Third (was first) */}
-  <div
-    style={{
-      width: "14px",
-      height: "14px",
-      borderRadius: "50%",
-      background: "#f7a7b2",
-      transformOrigin: "center",
-      animation: "pulseDot 1.6s infinite ease-in-out",
-      animationDelay: "0.5s",
-    }}
-  />
-</div>
-
+        {/* 3 Dots under logo (Reversed order) */}
+        <div
+          ref={dotsRef}
+          style={{
+            marginTop: "14px",
+            display: "flex",
+            gap: "10px",
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: 0.85,
+            transition: "opacity 260ms ease, transform 260ms ease",
+          }}
+        >
+          <div
+            style={{
+              width: "14px",
+              height: "14px",
+              borderRadius: "50%",
+              background: "#E25A5A",
+              transformOrigin: "center",
+              animation: "pulseDot 1.6s infinite ease-in-out",
+              animationDelay: "0s",
+            }}
+          />
+          <div
+            style={{
+              width: "14px",
+              height: "14px",
+              borderRadius: "50%",
+              background: "#cb626b",
+              transformOrigin: "center",
+              animation: "pulseDot 1.6s infinite ease-in-out",
+              animationDelay: "0.25s",
+            }}
+          />
+          <div
+            style={{
+              width: "14px",
+              height: "14px",
+              borderRadius: "50%",
+              background: "#f7a7b2",
+              transformOrigin: "center",
+              animation: "pulseDot 1.6s infinite ease-in-out",
+              animationDelay: "0.5s",
+            }}
+          />
+        </div>
       </div>
 
       {/* Dot animation */}

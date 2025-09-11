@@ -132,7 +132,7 @@ export default function NayashLanding() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="min-h-screen bg-gray-50 pt-8 relative">
+    <div ref={sectionRef} className=" bg-gray-50 pt-8 relative">
       {/* Responsive Red Guide Lines - Rotated 180deg */}
 
       {/* Main Content Container */}
@@ -200,14 +200,14 @@ export default function NayashLanding() {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-0 z-50 flex items-start justify-center rotate-180">
+        <div className="pointer-events-none absolute inset-0 z-[9999] flex items-start justify-center rotate-180">
           <div
             className="
     relative
-    mt-[65vh]                /* default (mobile / normal) */
-    sm:mt-[60vh]             /* small screens (≥640px) */
-    md:mt-[60vh]             /* medium screens (≥768px) */
-    lg:mt-[60vh]             /* large screens (≥1024px) */
+    mt-[40vh]                /* default (mobile / normal) */
+    sm:mt-[50vh]             /* small screens (≥64px) */
+    md:mt-[50vh]             /* medium screens (≥768px) */
+    lg:mt-[45vh]             /* large screens (≥1024px) */
      xl:mt-[50vh]           /* ≥1280px */
     2xl:mt-[40vh]          /* ≥1536px */
     translate-x-4            /* default */
