@@ -231,35 +231,24 @@ export default function NayashLanding() {
           </div>
         </div>
         {/* Hero Image Section */}
-       
+        <div className="relative w-full h-48 overflow-hidden shadow-2xl">
+          {/* Background Image */}
+          <img
+            src={bgImage}
+            alt=""
+            className="w-full h-auto block object-cover object-[40%_40%]"
+          />
 
-<div className="relative w-full max-w-full mx-auto">
-  {/* Hero: use aspect ratio so height scales with width */}
-  <div className="relative w-full overflow-hidden shadow-2xl aspect-[3/1] md:aspect-[4/1]">
-    {/* Background Image - fill container */}
-    <img
-      src={bgImage}
-      alt=""
-      className="block w-full h-full object-cover object-center"
-    />
-
-    {/* Centered Text Overlay */}
-    <div className="absolute inset-0 flex items-center justify-center px-6">
-      <h2
-        ref={heroTextRef}
-        className="text-white text-lg sm:text-2xl md:text-3xl lg:text-4xl font-gotham font-bold text-center leading-relaxed max-w-4xl"
-      >
-        All we want is simple: to see you smiling.
-      </h2>
-    </div>
-
-   
-  </div>
-
-  {/* Red bar below hero — keep as before but remove extreme negative margins */}
-  <div className="bg-[#c34147] h-20 md:h-28 lg:h-36 w-full"></div>
-</div>
-
+          {/* Centered Text Overlay */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <h2
+              ref={heroTextRef}
+              className="text-white text-2xl lg:text-3xl xl:text-4xl font-gotham font-bold text-center px-6 leading-relaxed"
+            >
+              All we want is simple: to see you smiling.
+            </h2>
+          </div>
+        </div>
       </div>
 
       <div className="bg-[#c34147] h-28 lg:h-44 w-full -mt-12"></div>
