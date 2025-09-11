@@ -132,7 +132,7 @@ export default function NayashLanding() {
   }, []);
 
   return (
-    <div ref={sectionRef} className=" bg-gray-50 pt-8 relative">
+    <div ref={sectionRef} className=" bg-gray-50 pt-8 relative h-auto">
       {/* Responsive Red Guide Lines - Rotated 180deg */}
 
       {/* Main Content Container */}
