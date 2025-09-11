@@ -8,7 +8,6 @@ import img1ethos3 from "../assets/ethos3.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 const NayashGroupCard = () => {
-  // refs (only structural: do not change your JSX text/content)
   const root = useRef(null);
   const leftRef = useRef(null);
   const centerRef = useRef(null);
@@ -17,13 +16,11 @@ const NayashGroupCard = () => {
   const headerTextRef = useRef(null);
   const tlRef = useRef(null);
 
-  // Flip states for each card
   const [leftFlipped, setLeftFlipped] = useState(false);
   const [centerFlipped, setCenterFlipped] = useState(false);
   const [rightFlipped, setRightFlipped] = useState(false);
 
   useLayoutEffect(() => {
-    // respect reduced motion settings
     if (
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -44,17 +41,14 @@ const NayashGroupCard = () => {
       });
       tlRef.current = tl;
 
-      // container subtle entrance
       tl.from(root.current, { y: 18, opacity: 0, duration: 0.6 });
 
-      // header text (above card) slight pop
       tl.from(
         headerTextRef.current,
         { y: 8, opacity: 0, duration: 0.6, ease: "power2.out" },
         "-=0.45"
       );
 
-      // panel stagger: center first then left/right for a balanced reveal
       tl.from(
         [centerRef.current, leftRef.current, rightRef.current],
         {
@@ -67,14 +61,12 @@ const NayashGroupCard = () => {
         "-=0.35"
       );
 
-      // side vertical title reveal on desktop (slide & fade)
       tl.from(
         sideTitleRef.current,
         { opacity: 0, x: 18, duration: 0.7, ease: "power3.out" },
         "-=0.5"
       );
 
-      // subtle breathing for the colored panels (very gentle)
       const breathe = gsap.to(
         [leftRef.current, centerRef.current, rightRef.current],
         {
@@ -83,11 +75,10 @@ const NayashGroupCard = () => {
           yoyo: true,
           repeat: -1,
           ease: "sine.inOut",
-          paused: window.innerWidth < 1024, // pause on small screens
+          paused: window.innerWidth < 1024,
         }
       );
 
-      // ensure breath restarts on resize if needed
       const onResize = () => {
         if (window.innerWidth < 1024) {
           breathe.pause();
@@ -97,7 +88,6 @@ const NayashGroupCard = () => {
       };
       window.addEventListener("resize", onResize);
 
-      // cleanup binding
       return () => {
         window.removeEventListener("resize", onResize);
       };
@@ -127,7 +117,6 @@ const NayashGroupCard = () => {
         >
           As <span className="text-[#c34147] font-semibold">Nayash Group</span>,
           everything we do is shaped by one belief:
-          {/* Conditional line breaks: visible on md+ to keep lines neat on wide screens */}
           <span className="hidden md:inline">
             <br />
           </span>{" "}
@@ -153,7 +142,7 @@ const NayashGroupCard = () => {
             </div>
           </div>
 
-          {/* Left Section */}
+          {/* Left Section (mobile: left-center) */}
           <div
             className="w-full md:w-1/3 relative h-64 sm:h-72 md:h-auto [perspective:1000px] cursor-pointer"
             onClick={() => setLeftFlipped((v) => !v)}
@@ -167,7 +156,7 @@ const NayashGroupCard = () => {
               }`}
             >
               {/* Front */}
-              <div className="absolute inset-0 bg-[#C24040] text-white p-6 flex flex-col justify-end [backface-visibility:hidden] rounded-lg">
+              <div className="absolute inset-0 bg-[#C24040] text-white p-6 flex flex-col items-start justify-center md:justify-end [backface-visibility:hidden] rounded-lg">
                 <h3 className="text-xl md:text-2xl tracking-wide font-gotham">
                   UPSCALE
                   <br />
@@ -186,8 +175,9 @@ const NayashGroupCard = () => {
                   alt="Upscale Housing"
                   className="w-full h-full object-cover rounded-lg"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-6">
-                  <div className="text-white">
+                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center p-6">
+                  {/* mobile: left-aligned center-vert, desktop: bottom */}
+                  <div className="w-full md:w-auto text-white flex flex-col items-start md:items-start">
                     <h3 className="text-xl md:text-2xl tracking-wide font-gotham">
                       UPSCALE
                       <br />
@@ -204,7 +194,7 @@ const NayashGroupCard = () => {
             </div>
           </div>
 
-          {/* Center Section */}
+          {/* Center Section (mobile: right-center) */}
           <div
             className="w-full md:w-1/3 relative h-64 sm:h-72 md:h-auto [perspective:1000px] cursor-pointer"
             onClick={() => setCenterFlipped((v) => !v)}
@@ -218,13 +208,13 @@ const NayashGroupCard = () => {
               }`}
             >
               {/* Front */}
-              <div className="absolute inset-0 bg-[#cb626b] text-white p-6 flex flex-col justify-start [backface-visibility:hidden] rounded-lg">
-                <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham">
+              <div className="absolute inset-0 bg-[#cb626b] text-white p-6 flex flex-col items-end justify-center md:items-center md:justify-start [backface-visibility:hidden] rounded-lg">
+                <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham text-right md:text-left">
                   ARCHITECTURAL
                   <br />
                   SOLUTIONS:
                 </h3>
-                <p className="text-base md:text-3xl font-light tracking-wider">
+                <p className="text-base md:text-3xl font-light tracking-wider text-right md:text-left">
                   BOLD IN
                   <br />
                   THOUGHT.
@@ -237,8 +227,9 @@ const NayashGroupCard = () => {
                   alt="Architectural Solutions"
                   className="w-full h-full object-cover rounded-lg"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-start p-6">
-                  <div className="text-white">
+                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center p-6">
+                  {/* mobile: right-aligned center-vert, desktop: center */}
+                  <div className="w-full flex flex-col items-end justify-center text-white text-right md:items-center md:text-center">
                     <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham">
                       ARCHITECTURAL
                       <br />
@@ -255,7 +246,7 @@ const NayashGroupCard = () => {
             </div>
           </div>
 
-          {/* Right Section */}
+          {/* Right Section (mobile: left-center) */}
           <div
             className="w-full md:w-1/3 relative h-64 sm:h-72 md:h-auto [perspective:1000px] cursor-pointer"
             onClick={() => setRightFlipped((v) => !v)}
@@ -269,13 +260,13 @@ const NayashGroupCard = () => {
               }`}
             >
               {/* Front */}
-              <div className="absolute inset-0 bg-[#f7a7b2] text-white p-6 flex flex-col justify-end [backface-visibility:hidden] rounded-lg">
-                <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham">
+              <div className="absolute inset-0 bg-[#f7a7b2] text-white p-6 flex flex-col items-start justify-center md:items-end md:justify-end [backface-visibility:hidden] rounded-lg">
+                <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham text-left md:text-right">
                   INTERIOR
                   <br />
                   DESIGNING:
                 </h3>
-                <p className="text-base md:text-3xl font-light tracking-wider">
+                <p className="text-base md:text-3xl font-light tracking-wider text-left md:text-right">
                   TRUSTED IN
                   <br />
                   EXECUTION.
@@ -288,14 +279,15 @@ const NayashGroupCard = () => {
                   alt="Interior Designing"
                   className="w-full h-full object-cover rounded-lg"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-6">
-                  <div className="text-white">
-                    <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham">
+                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center p-6">
+                  {/* mobile: left-aligned center-vert, desktop: bottom/right */}
+                  <div className="w-full md:w-auto text-white flex flex-col items-start md:items-end">
+                    <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham text-left">
                       INTERIOR
                       <br />
                       DESIGNING:
                     </h3>
-                    <p className="text-base md:text-3xl font-light tracking-wider">
+                    <p className="text-base md:text-3xl font-light tracking-wider text-left">
                       TRUSTED IN
                       <br />
                       EXECUTION.
