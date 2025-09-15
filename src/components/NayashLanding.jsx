@@ -2,7 +2,7 @@ import React, { useRef, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import bgImage from "../assets/bgImg.jpg"; // apni image ka path yaha import karo
-
+import centerArrow from "../assets/centerArrow.png"; // apni image ka path yaha import karo
 gsap.registerPlugin(ScrollTrigger);
 
 export default function NayashLanding() {
@@ -12,8 +12,6 @@ export default function NayashLanding() {
   const smilesRef = useRef(null);
   const beginRef = useRef(null);
   const rightColRef = useRef(null);
-  const guideVerticalRef = useRef(null);
-  const guideHorizontalRef = useRef(null);
   const heroBgRef = useRef(null);
   const heroOverlayRef = useRef(null);
   const heroTextRef = useRef(null);
@@ -64,28 +62,16 @@ export default function NayashLanding() {
       "-=0.45"
     );
 
-    // Guide lines draw (vertical then horizontal)
-    master.fromTo(
-      guideVerticalRef.current,
-      { scaleY: 0, transformOrigin: "top center", opacity: 0 },
-      { scaleY: 1, opacity: 1, duration: 0.6 },
-      "-=0.5"
-    );
-
-    master.fromTo(
-      guideHorizontalRef.current,
-      { scaleX: 0, transformOrigin: "left center", opacity: 0 },
-      { scaleX: 1, opacity: 1, duration: 0.45 },
-      "-=0.55"
-    );
-
     // Hero overlay subtle adjust & hero text entrance
-    master.fromTo(
-      heroOverlayRef.current,
-      { opacity: 0.7 },
-      { opacity: 0.5, duration: 0.9 },
-      "-=0.4"
-    );
+    // Animate ONLY the overlay (if present)
+    if (heroOverlayRef.current) {
+      master.fromTo(
+        heroOverlayRef.current,
+        { opacity: 0.7 },
+        { opacity: 0.5, duration: 0.9 },
+        "-=0.4"
+      );
+    }
     master.from(
       heroTextRef.current,
       { y: 20, opacity: 0, duration: 0.8 },
@@ -107,34 +93,16 @@ export default function NayashLanding() {
       });
     }
 
-    // Small breathing pulse for guides on larger screens
-    const guidePulse = gsap.to(
-      [guideVerticalRef.current, guideHorizontalRef.current],
-      {
-        scale: 1.02,
-        transformOrigin: "center center",
-        duration: 1.6,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-        paused: window.innerWidth < 1024,
-      }
-    );
-    guidePulse.play();
-
     // cleanup on unmount
     return () => {
       master.kill();
       if (bgST) bgST.kill();
-      guidePulse.kill();
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
 
   return (
     <div ref={sectionRef} className=" bg-gray-50 pt-8 relative h-auto">
-      {/* Responsive Red Guide Lines - Rotated 180deg */}
-
       {/* Main Content Container */}
       <div className="max-w-6xl mx-auto px-4  sm:px-6 sm:py-16 lg:px-8 lg:pb-0">
         {/* Top Section with Typography and Content */}
@@ -199,51 +167,57 @@ export default function NayashLanding() {
             </div>
           </div>
         </div>
-
         <div className="pointer-events-none absolute inset-0 z-[9999] flex items-start justify-center rotate-180">
           <div
             className="
     relative
-    mt-[40vh]                /* default (mobile / normal) */
+    mt-[23vh]                /* default (mobile / normal) */
     sm:mt-[50vh]             /* small screens (≥64px) */
     md:mt-[50vh]             /* medium screens (≥768px) */
-    lg:mt-[45vh]             /* large screens (≥1024px) */
+    lg:mt-[40vh]             /* large screens (≥1024px) */
      xl:mt-[50vh]           /* ≥1280px */
-    2xl:mt-[40vh]          /* ≥1536px */
+    2xl:mt-[35vh]          /* ≥1536px */
     translate-x-4            /* default */
-    sm:translate-x-6         /* small screens */
-    md:translate-x-8         /* medium screens */
-    lg:translate-x-10        /* large screens */
+    sm:translate-x-10        /* small screens */
+    md:translate-x-14         /* medium screens */
+    lg:translate-x-20       /* large screens */
   "
           >
             {/* Vertical line */}
             <div
-              ref={guideVerticalRef}
               className="h-12 sm:h-16 md:h-20 lg:h-24 w-[2.5px] bg-red-500 mx-auto"
               style={{ transformOrigin: "top center" }}
             />
             {/* Horizontal line (centered on vertical) */}
             <div
-              ref={guideHorizontalRef}
               className="h-[2.5px] w-6 sm:w-8 md:w-10 lg:w-12 bg-red-500 absolute left-1/2 -translate-x-1/2 -top-[1.25px]"
               style={{ transformOrigin: "left center" }}
             />
           </div>
         </div>
+
         {/* Hero Image Section */}
-        <div className="relative w-full h-48 overflow-hidden shadow-2xl">
+        <div className="relative w-full h-32 sm:h-40 md:h-48 overflow-hidden">
           {/* Background Image */}
           <img
+            ref={heroBgRef}
             src={bgImage}
             alt=""
-            className="w-full h-auto block object-cover object-[40%_40%]"
+            className="w-full h-full block object-cover object-[40%_40%]"
+          />
+
+          {/* Overlay (black) */}
+          <div
+            ref={heroOverlayRef}
+            className="absolute inset-0 opacity-50 pointer-events-none"
+            aria-hidden="true"
           />
 
           {/* Centered Text Overlay */}
           <div className="absolute inset-0 flex items-center justify-center">
             <h2
               ref={heroTextRef}
-              className="text-white text-2xl lg:text-3xl xl:text-4xl font-gotham font-bold text-center px-6 leading-relaxed"
+              className="text-white text-base sm:text-xl lg:text-3xl xl:text-4xl font-gotham font-bold text-center px-4 sm:px-6 leading-relaxed"
             >
               All we want is simple: to see you smiling.
             </h2>
@@ -251,7 +225,7 @@ export default function NayashLanding() {
         </div>
       </div>
 
-      <div className="bg-[#c34147] h-28 lg:h-44 w-full -mt-12"></div>
+      <div className="bg-[#c34147] h-28 lg:h-44 w-full lg:-mt-24 -mt-16"></div>
     </div>
   );
 }

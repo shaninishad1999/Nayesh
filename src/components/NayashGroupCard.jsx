@@ -104,17 +104,7 @@ const NayashGroupCard = () => {
     <div className="max-w-6xl mx-auto p-6 " ref={root} id="ethos">
       {/* Header Text */}
       <div className="mb-8" ref={headerTextRef}>
-        <p
-          className=" px-8 pl-0
-      text-gray-700 
-      text-sm sm:text-base md:text-lg lg:text-xl 
-      leading-6 sm:leading-7 md:leading-relaxed 
-      max-w-4xl w-full 
-      font-gotham 
-      mx-4 sm:mx-0
-      whitespace-normal break-words
-    "
-        >
+        <p className="px-8 pl-0 text-gray-700 text-xs sm:text-sm md:text-base lg:text-lg leading-5 sm:leading-6 md:leading-7 max-w-4xl w-full font-gotham mx-4 sm:mx-0 whitespace-normal break-words">
           As <span className="text-[#c34147] font-semibold">Nayash Group</span>,
           everything we do is shaped by one belief:
           <span className="hidden md:inline">
@@ -129,12 +119,12 @@ const NayashGroupCard = () => {
       </div>
 
       {/* Main Card Layout */}
-      <div className="relative bg-white rounded-lg overflow-hidden">
+      <div className="relative bg-white overflow-hidden">
         <div className="flex flex-col md:flex-row min-h-[26rem] gap-6 md:gap-0">
           {/* OUR ETHOS - Mobile (top) */}
           <div className="block md:hidden mb-6">
             <div className="flex flex-col justify-center items-center">
-              <h1 className="text-4xl tracking-widest text-center whitespace-nowrap font-gotham">
+              <h1 className="text-3xl sm:text-4xl tracking-widest text-center whitespace-nowrap font-gotham">
                 <span className="text-gray-400">OUR</span>{" "}
                 <span className="text-[#c34147]">ETHOS</span>
               </h1>
@@ -142,7 +132,7 @@ const NayashGroupCard = () => {
             </div>
           </div>
 
-          {/* Left Section (mobile: left-center) */}
+          {/* Left Section */}
           <div
             className="w-full md:w-1/3 relative h-64 sm:h-72 md:h-auto [perspective:1000px] cursor-pointer"
             onClick={() => setLeftFlipped((v) => !v)}
@@ -151,50 +141,48 @@ const NayashGroupCard = () => {
             ref={leftRef}
           >
             <div
-              className={`relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700 ${
+              className={`relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700 will-change-transform ${
                 leftFlipped ? "[transform:rotateY(180deg)]" : ""
               }`}
             >
               {/* Front */}
-              <div className="absolute inset-0 bg-[#C24040] text-white p-6 flex flex-col items-start justify-center md:justify-end [backface-visibility:hidden] rounded-lg">
-                <h3 className="text-xl md:text-2xl tracking-wide font-gotham">
+              <div className="absolute inset-0 bg-[#C24040] text-white p-4 sm:p-6 flex flex-col items-start justify-center md:justify-end [backface-visibility:hidden]">
+                <h3 className="text-sm sm:text-base md:text-lg lg:text-2xl font-bold tracking-wide font-gotham text-white">
                   UPSCALE
                   <br />
                   HOUSING:
                 </h3>
-                <p className="text-base md:text-3xl font-thin tracking-wider">
+                <p className="text-xs sm:text-sm md:text-lg lg:text-2xl font-thin tracking-wider leading-tight">
                   STRONG IN ITS
                   <br />
                   FOUNDATION.
                 </p>
               </div>
-              {/* Back */}
-              <div className="absolute inset-0 [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
+
+              {/* Back - EXACT same alignment/classes as front */}
+              <div className="absolute inset-0 [transform:rotateY(180deg)] [backface-visibility:hidden]">
                 <img
                   src={img1ethos1}
                   alt="Upscale Housing"
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center p-6">
-                  {/* mobile: left-aligned center-vert, desktop: bottom */}
-                  <div className="w-full md:w-auto text-white flex flex-col items-start md:items-start">
-                    <h3 className="text-xl md:text-2xl tracking-wide font-gotham">
-                      UPSCALE
-                      <br />
-                      HOUSING:
-                    </h3>
-                    <p className="text-base md:text-3xl font-thin tracking-wider">
-                      STRONG IN ITS
-                      <br />
-                      FOUNDATION.
-                    </p>
-                  </div>
+                <div className="absolute inset-0 bg-black bg-opacity-20 p-4 sm:p-6 flex flex-col items-start justify-center md:justify-end">
+                  <h3 className="text-sm sm:text-base md:text-lg lg:text-2xl font-bold tracking-wide font-gotham text-white">
+                    UPSCALE
+                    <br />
+                    HOUSING:
+                  </h3>
+                  <p className="text-xs sm:text-sm md:text-lg lg:text-2xl font-thin tracking-wider text-white leading-tight">
+                    STRONG IN ITS
+                    <br />
+                    FOUNDATION.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Center Section (mobile: right-center) */}
+          {/* Center Section - centered content, but LEFT text alignment */}
           <div
             className="w-full md:w-1/3 relative h-64 sm:h-72 md:h-auto [perspective:1000px] cursor-pointer"
             onClick={() => setCenterFlipped((v) => !v)}
@@ -203,39 +191,41 @@ const NayashGroupCard = () => {
             ref={centerRef}
           >
             <div
-              className={`relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700 ${
+              className={`relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700 will-change-transform ${
                 centerFlipped ? "[transform:rotateY(180deg)]" : ""
               }`}
             >
               {/* Front */}
-              <div className="absolute inset-0 bg-[#cb626b] text-white p-6 flex flex-col items-end justify-center md:items-center md:justify-start [backface-visibility:hidden] rounded-lg">
-                <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham text-right md:text-left">
-                  ARCHITECTURAL
-                  <br />
-                  SOLUTIONS:
-                </h3>
-                <p className="text-base md:text-3xl font-light tracking-wider text-right md:text-left">
-                  BOLD IN
-                  <br />
-                  THOUGHT.
-                </p>
+              <div className="absolute inset-0 bg-[#cb626b] text-white p-4 sm:p-6 flex flex-col items-start justify-start md:justify-start [backface-visibility:hidden]">
+                <div className="w-full max-w-[92%] md:max-w-[85%]">
+                  <h3 className="text-sm sm:text-base md:text-lg lg:text-2xl font-bold tracking-wide font-gotham text-white text-left">
+                    ARCHITECTURAL
+                    <br />
+                    SOLUTIONS:
+                  </h3>
+                  <p className="text-xs sm:text-sm md:text-lg lg:text-2xl font-light tracking-wider text-left leading-tight mt-1">
+                    BOLD IN
+                    <br />
+                    THOUGHT.
+                  </p>
+                </div>
               </div>
-              {/* Back */}
-              <div className="absolute inset-0 [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
+
+              {/* Back - EXACT same alignment/classes as front */}
+              <div className="absolute inset-0 [transform:rotateY(180deg)] [backface-visibility:hidden]">
                 <img
                   src={img1ethos2}
                   alt="Architectural Solutions"
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center p-6">
-                  {/* mobile: right-aligned center-vert, desktop: center */}
-                  <div className="w-full flex flex-col items-end justify-center text-white text-right md:items-center md:text-center">
-                    <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham">
+                <div className="absolute inset-0 bg-black bg-opacity-20 p-4 sm:p-6 flex flex-col items-start justify-start">
+                  <div className="w-full max-w-[92%] md:max-w-[85%]">
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-2xl font-bold tracking-wide font-gotham text-white text-left">
                       ARCHITECTURAL
                       <br />
                       SOLUTIONS:
                     </h3>
-                    <p className="text-base md:text-3xl font-light tracking-wider">
+                    <p className="text-xs sm:text-sm md:text-lg lg:text-2xl font-light tracking-wider text-white text-left leading-tight mt-1">
                       BOLD IN
                       <br />
                       THOUGHT.
@@ -246,7 +236,7 @@ const NayashGroupCard = () => {
             </div>
           </div>
 
-          {/* Right Section (mobile: left-center) */}
+          {/* Right Section - made same alignment as Left (no other behavior changes) */}
           <div
             className="w-full md:w-1/3 relative h-64 sm:h-72 md:h-auto [perspective:1000px] cursor-pointer"
             onClick={() => setRightFlipped((v) => !v)}
@@ -255,44 +245,42 @@ const NayashGroupCard = () => {
             ref={rightRef}
           >
             <div
-              className={`relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700 ${
+              className={`relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700 will-change-transform ${
                 rightFlipped ? "[transform:rotateY(180deg)]" : ""
               }`}
             >
               {/* Front */}
-              <div className="absolute inset-0 bg-[#f7a7b2] text-white p-6 flex flex-col items-start justify-center md:items-end md:justify-end [backface-visibility:hidden] rounded-lg">
-                <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham text-left md:text-right">
+              <div className="absolute inset-0 bg-[#f7a7b2] text-white p-4 sm:p-6 flex flex-col items-start justify-center md:justify-end [backface-visibility:hidden]">
+                <h3 className="text-sm sm:text-base md:text-lg lg:text-2xl font-bold tracking-wide font-gotham text-white text-left">
                   INTERIOR
                   <br />
                   DESIGNING:
                 </h3>
-                <p className="text-base md:text-3xl font-light tracking-wider text-left md:text-right">
+                <p className="text-xs sm:text-sm md:text-lg lg:text-2xl font-light tracking-wider text-left leading-tight">
                   TRUSTED IN
                   <br />
                   EXECUTION.
                 </p>
               </div>
-              {/* Back */}
-              <div className="absolute inset-0 [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
+
+              {/* Back - EXACT same alignment/classes as front */}
+              <div className="absolute inset-0 [transform:rotateY(180deg)] [backface-visibility:hidden]">
                 <img
                   src={img1ethos3}
                   alt="Interior Designing"
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center p-6">
-                  {/* mobile: left-aligned center-vert, desktop: bottom/right */}
-                  <div className="w-full md:w-auto text-white flex flex-col items-start md:items-end">
-                    <h3 className="text-xl md:text-2xl font-bold tracking-wide font-gotham text-left">
-                      INTERIOR
-                      <br />
-                      DESIGNING:
-                    </h3>
-                    <p className="text-base md:text-3xl font-light tracking-wider text-left">
-                      TRUSTED IN
-                      <br />
-                      EXECUTION.
-                    </p>
-                  </div>
+                <div className="absolute inset-0 bg-black bg-opacity-20 p-4 sm:p-6 flex flex-col items-start justify-center md:justify-end">
+                  <h3 className="text-sm sm:text-base md:text-lg lg:text-2xl font-bold tracking-wide font-gotham text-white text-left">
+                    INTERIOR
+                    <br />
+                    DESIGNING:
+                  </h3>
+                  <p className="text-xs sm:text-sm md:text-lg lg:text-2xl font-light tracking-wider text-white text-left leading-tight">
+                    TRUSTED IN
+                    <br />
+                    EXECUTION.
+                  </p>
                 </div>
               </div>
             </div>
@@ -301,7 +289,7 @@ const NayashGroupCard = () => {
           {/* OUR ETHOS - Desktop (side) */}
           <div className="hidden md:flex justify-center">
             <h1
-              className="text-7xl px-5 tracking-widest [writing-mode:vertical-rl] rotate-180 font-gotham"
+              className="text-6xl lg:text-7xl px-5 tracking-widest [writing-mode:vertical-rl] rotate-180 font-gotham"
               ref={sideTitleRef}
             >
               <span className="text-gray-400">OUR</span>{" "}
@@ -313,10 +301,10 @@ const NayashGroupCard = () => {
 
         {/* Bottom Text */}
         <div className="pl-0 pr-6 pt-6 pb-6 md:p-10 text-left md:text-right bg-white md:mr-[95px]">
-          <p className="text-gray-600 mb-3 text-base md:text-lg font-gotham">
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 mb-3 font-gotham">
             That's where our identity finds its heart.
           </p>
-          <p className="text-gray-700 text-lg md:text-xl font-gotham">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-gotham">
             Because in the end, a home is about stories,
             <span className="text-[#c34147] font-semibold">
               {" "}

@@ -366,7 +366,7 @@ const Header = () => {
 
       {/* Desktop Full-Screen Modal Menu */}
       {isDesktopMenuOpen && (
-        <div className="fixed inset-0 h-screen w-screen bg-[#C24040]/70 flex flex-col font-gotham font-light items-center justify-center z-[100]">
+        <div className="fixed inset-0 h-screen w-screen bg-[#FF0000] flex flex-col font-gotham font-light items-center justify-center z-[100]">
           <button
             className="absolute top-6 right-6 text-gray-300 hover:text-white transition-colors duration-300 font-gotham font-light"
             onClick={() => setIsDesktopMenuOpen(false)}
@@ -382,18 +382,18 @@ const Header = () => {
               <li key={idx}>
                 <button
                   onClick={() => scrollToId(item.id)}
-                  className="relative text-white text-xl transition-all duration-300 transform hover:scale-110 group font-gotham font-light"
+                  className="relative text-white text-xl transition-all duration-300 transform hover:scale-110 group font-gotham font-bold"
                   aria-label={`Go to ${item.label}`}
                 >
                   {item.label}
-                  <span className="absolute left-1/2 -bottom-2 w-0 h-1 bg-[#f7a7b2] transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                  <span className="absolute left-1/2 -bottom-2 w-0 h-1 bg-red-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                 </button>
               </li>
             ))}
           </ul>
 
           <div className="absolute bottom-8 text-center w-full">
-            <p className="text-gray-500 text-sm font-gotham font-light">Press ESC to close</p>
+            <p className="text-gray-200 text-sm font-gotham font-light">Press ESC to close</p>
           </div>
         </div>
       )}

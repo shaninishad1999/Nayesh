@@ -233,12 +233,12 @@ const CompanyValuesPage = () => {
               ref={(el) => setValueRef(el, 0)}
             >
               {/* Vertical line (desktop) */}
-              <div className="hidden md:block absolute top-0 right-0 h-full border-r border-gray-300"></div>
-              <div className="hidden md:block absolute top-0 right-1 h-full border-r border-gray-300"></div>
+              <div className="hidden md:block absolute top-0 right-0 h-full border-r-2 border-white"></div>
+              <div className="hidden md:block absolute top-0 right-1 h-full border-r-2 border-white"></div>
 
               {/* Horizontal line (mobile) */}
-              <div className="block md:hidden absolute bottom-0 left-0 w-full border-b border-gray-300"></div>
-              <div className="block md:hidden absolute bottom-1 left-0 w-full border-b border-gray-300"></div>
+              <div className="block md:hidden absolute bottom-0 left-0 w-full border-b-2 border-white"></div>
+              <div className="block md:hidden absolute bottom-1 left-0 w-full border-b-2 border-white"></div>
 
               <h2 className="md:text-4xl  lg:text-4xl text-xl font-light mb-12 tracking-wide">
                 <span className="tracking-wider">PROMISE-DRIVEN</span>
@@ -258,12 +258,12 @@ const CompanyValuesPage = () => {
               ref={(el) => setValueRef(el, 1)}
             >
               {/* Vertical line (desktop) */}
-              <div className="hidden md:block absolute top-0 right-0 h-full border-r border-gray-300"></div>
-              <div className="hidden md:block absolute top-0 right-1 h-full border-r border-gray-300"></div>
+              <div className="hidden md:block absolute top-0 right-0 h-full border-r-2 border-white"></div>
+              <div className="hidden md:block absolute top-0 right-1 h-full border-r-2 border-white"></div>
 
               {/* Horizontal line (mobile) */}
-              <div className="block md:hidden absolute bottom-0 left-0 w-full border-b border-gray-300"></div>
-              <div className="block md:hidden absolute bottom-1 left-0 w-full border-b border-gray-300"></div>
+              <div className="block md:hidden absolute bottom-0 left-0 w-full border-b-2 border-white"></div>
+              <div className="block md:hidden absolute bottom-1 left-0 w-full border-b-2 border-white"></div>
 
               <h2 className="md:text-4xl  lg:text-4xl text-xl font-light mb-12 tracking-wide ">
                 <span className="tracking-wider font-gothambold font-thin">
@@ -302,29 +302,28 @@ const CompanyValuesPage = () => {
 
           {/* Separator Lines */}
           <div
-            className="border-t border-white border-opacity-30 mb-1"
+            className="border-t-2 border-[#ffffff] z-[9999] border-opacity-30 mb-1"
             ref={(el) => setSeparatorRef(el, 0)}
           ></div>
           <div
-            className="border-t border-white border-opacity-30 mb-1"
+            className="border-t-2 border-[#ffffff] border-opacity-30 mb-1"
             ref={(el) => setSeparatorRef(el, 1)}
           ></div>
           <div
-            className="border-t border-white border-opacity-30 mb-12"
+            className="border-t-2 border-[#ffffff] border-opacity-30 mb-12"
             ref={(el) => setSeparatorRef(el, 2)}
           ></div>
 
           {/* How We Work Header */}
-         <div
-  className="text-center md:text-right"
-  ref={howWeWorkRef}
-  id="offer"
->
-  <h1 className="text-4xl md:text-7xl font-light tracking-wider">
-    HOW WE <span className="font-gotham">WORK</span>
-  </h1>
-</div>
-
+          <div
+            className="text-center md:text-right"
+            ref={howWeWorkRef}
+            id="offer"
+          >
+            <h1 className="text-4xl md:text-7xl font-light tracking-wider">
+              HOW WE <span className="font-gotham">WORK</span>
+            </h1>
+          </div>
         </div>
       </div>
 
