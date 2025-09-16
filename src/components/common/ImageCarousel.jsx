@@ -135,7 +135,7 @@ const ImageCarousel = () => {
         {/* Sliding track */}
         <div
           ref={trackRef}
-          className="absolute top-0 left-0 h-full flex w-[300%]" /* 3 slides -> 300% */
+          className="absolute top-0 left-0 h-full flex w-[100%]" /* 3 slides -> 300% */
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
