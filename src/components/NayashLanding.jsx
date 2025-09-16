@@ -2,7 +2,6 @@ import React, { useRef, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import bgImage from "../assets/bgImg.jpg"; // apni image ka path yaha import karo
-import centerArrow from "../assets/centerArrow.png"; // apni image ka path yaha import karo
 gsap.registerPlugin(ScrollTrigger);
 
 export default function NayashLanding() {
@@ -171,11 +170,11 @@ export default function NayashLanding() {
           <div
             className="
     relative
-    mt-[23vh]                /* default (mobile / normal) */
-    sm:mt-[50vh]             /* small screens (≥64px) */
-    md:mt-[50vh]             /* medium screens (≥768px) */
+    mt-[20vh]                /* default (mobile / normal) */
+    sm:mt-[35vh]             /* small screens (≥640px) */
+    md:mt-[40vh]             /* medium screens (≥768px) */
     lg:mt-[40vh]             /* large screens (≥1024px) */
-     xl:mt-[50vh]           /* ≥1280px */
+     xl:mt-[35vh]           /* ≥1280px */
     2xl:mt-[35vh]          /* ≥1536px */
     translate-x-4            /* default */
     sm:translate-x-10        /* small screens */

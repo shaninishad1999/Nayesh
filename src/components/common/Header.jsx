@@ -41,7 +41,7 @@ const IntroSplash = ({ onFinish }) => {
 
     const timeout1 = setTimeout(() => {
       if (!mounted) return;
-      const headerLogo = document.querySelector('img[data-header-logo]');
+      const headerLogo = document.querySelector("img[data-header-logo]");
       if (!headerLogo) {
         splashContainer.style.transition = `opacity 700ms ease, transform 700ms ease`;
         splashContainer.style.opacity = "0";
@@ -138,8 +138,8 @@ const IntroSplash = ({ onFinish }) => {
           src={logo}
           alt="Site logo"
           style={{
-            width: "100%",      // fill the container responsively
-            maxWidth: "420px",  // don't exceed original design
+            width: "100%", // fill the container responsively
+            maxWidth: "420px", // don't exceed original design
             height: "auto",
             objectFit: "contain",
             filter: "drop-shadow(0 20px 60px rgba(0,0,0,0.5))",
@@ -267,7 +267,9 @@ const Header = () => {
   ];
 
   const textColorClass = isScrolled ? "text-red-600" : "text-white";
-  const hoverColorClass = isScrolled ? "hover:text-red-700" : "hover:text-blue-400";
+  const hoverColorClass = isScrolled
+    ? "hover:text-red-700"
+    : "hover:text-blue-400";
   const mobileTextColor = isScrolled ? "text-red-600" : "text-white";
 
   const scrollToId = (id) => {
@@ -292,10 +294,12 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 z-[9999] w-full transition-all duration-300 ${
-        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-lg py-2" : "bg-transparent py-4"
+        isScrolled
+          ? "bg-white/95 backdrop-blur-sm shadow-lg py-2"
+          : "bg-transparent py-4"
       }`}
     >
-      <div className="container mx-auto flex justify-between items-center px-4 sm:px-6">
+      <div className="container mx-auto flex justify-between items-center px-4  sm:px-14">
         <div className="ml-2 sm:ml-4">
           <Link to="/" aria-label="Go to home" onClick={handleLogoClick}>
             <img
@@ -303,7 +307,9 @@ const Header = () => {
               data-header-logo="true"
               alt="MyLogo"
               className={`w-auto transition-all duration-500 ease-out ${
-                isScrolled ? "h-12 sm:h-14 md:h-16 lg:h-20" : "h-14 sm:h-16 md:h-20 lg:h-24"
+                isScrolled
+                  ? "h-12 sm:h-14 md:h-16 lg:h-20"
+                  : "h-14 sm:h-16 md:h-20 lg:h-24"
               }`}
               style={{ objectFit: "contain" }}
             />
@@ -332,7 +338,9 @@ const Header = () => {
             </button>
 
             <button
-              className={`transition-all duration-300 ${isScrolled ? "ml-2" : "-mt-8 ml-2"}`}
+              className={`transition-all duration-300 ${
+                isScrolled ? "ml-2" : "-mt-8 ml-2"
+              }`}
               onClick={() => setIsDesktopMenuOpen(true)}
               aria-label="Open menu"
             >
@@ -372,8 +380,19 @@ const Header = () => {
             onClick={() => setIsDesktopMenuOpen(false)}
             aria-label="Close menu"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
 
@@ -393,7 +412,9 @@ const Header = () => {
           </ul>
 
           <div className="absolute bottom-8 text-center w-full">
-            <p className="text-gray-200 text-sm font-gotham font-light">Press ESC to close</p>
+            <p className="text-gray-200 text-sm font-gotham font-light">
+              Press ESC to close
+            </p>
           </div>
         </div>
       )}
@@ -425,6 +446,7 @@ const Header = () => {
 /* =========================
    ImageCarousel (unchanged)
    ========================= */
+
 const ImageCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -434,22 +456,26 @@ const ImageCarousel = () => {
       src: img1,
       alt: "Beautiful landscape 1",
       heading: "The Balcony",
-      subheading: "Discover amazing experiences and create unforgettable memories",
+      // explicit two-row split for the first slide as you requested
+      subheadingRows: ["Where you'll sip your moments", "together, every day."],
     },
     {
       src: img2,
       alt: "Beautiful landscape 2",
-      heading: "Explore Nature's Beauty",
-      subheading: "Immerse yourself in breathtaking landscapes and serene environments",
+      heading: "The Couch",
+      // single row for second slide (will render as one line)
+      subheadingRows: ["Where friends turn into family."],
     },
     {
       src: img3,
       alt: "Beautiful landscape 3",
-      heading: "Adventure Awaits",
-      subheading: "Embark on journeys that will transform your perspective",
+      heading: "The Corner",
+      // single row for third slide (will render as one line)
+      subheadingRows: ["That feels like it's only yours."],
     },
   ];
 
+  // Split heading into first word and remaining words
   const splitHeading = (heading) => {
     const words = heading.split(" ");
     const firstWord = words[0];
@@ -457,15 +483,7 @@ const ImageCarousel = () => {
     return { firstWord, remainingWords };
   };
 
-  const splitSubheading = (subheading) => {
-    const words = subheading.split(" ");
-    const totalWords = words.length;
-    const firstRowWords = Math.ceil(totalWords * 0.7);
-    const firstRow = words.slice(0, firstRowWords).join(" ");
-    const secondRow = words.slice(firstRowWords).join(" ");
-    return { firstRow, secondRow };
-  };
-
+  // Auto-rotate carousel
   useEffect(() => {
     const interval = setInterval(() => {
       setIsTransitioning(true);
@@ -473,10 +491,12 @@ const ImageCarousel = () => {
         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
         setIsTransitioning(false);
       }, 400);
-    }, 5000); // a bit slower carousel rotation (5s)
+    }, 5000);
+
     return () => clearInterval(interval);
   }, [images.length]);
 
+  // Navigate to a specific slide
   const goToSlide = (index) => {
     if (index !== currentIndex) {
       setIsTransitioning(true);
@@ -488,11 +508,19 @@ const ImageCarousel = () => {
   };
 
   const { firstWord, remainingWords } = splitHeading(images[currentIndex].heading);
-  const { firstRow, secondRow } = splitSubheading(images[currentIndex].subheading);
+
+  // Use explicit rows if provided; otherwise put whole subheading in a single row
+  const subheadingRows =
+    images[currentIndex].subheadingRows && images[currentIndex].subheadingRows.length > 0
+      ? images[currentIndex].subheadingRows
+      : images[currentIndex].subheading
+      ? [images[currentIndex].subheading]
+      : [];
 
   return (
     <>
       <div className="relative w-full h-screen overflow-hidden">
+        {/* Image */}
         <div className="relative w-full h-full">
           <img
             src={images[currentIndex].src}
@@ -503,48 +531,57 @@ const ImageCarousel = () => {
           />
         </div>
 
+        {/* Overlay */}
         <div className="absolute inset-0 bg-black/20" />
 
+        {/* Heading & Subheading */}
         <div className="absolute inset-0 flex items-center justify-end">
-          <div className="text-right px-4">
+          <div className="text-right  w-full max-w-7xl flex flex-col items-end -space-y-10">
             <h1
-              className={`text-white font-gotham leading-none uppercase transition-all duration-900 ease-out transform ${
-                isTransitioning ? "translate-x-full opacity-0" : "translate-x-0 opacity-100 animate-slideInRight"
-              } text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl`}
+              className={`text-white font-gotham uppercase tracking-wide transition-all duration-900 ease-out transform ${
+                isTransitioning
+                  ? "translate-x-full opacity-0"
+                  : "translate-x-0 opacity-100 animate-slideInRight"
+              } text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] 2xl:text-[14rem]`}
             >
               {firstWord}
             </h1>
 
             {remainingWords && (
               <h1
-                className={`text-white font-gotham leading-none uppercase transition-all duration-900 ease-out transform ${
-                  isTransitioning ? "translate-x-full opacity-0" : "translate-x-0 opacity-100 animate-slideInRight animation-delay-200"
-                } text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl`}
+                className={`text-white font-gotham leading-none tracking-wide  uppercase transition-all duration-900 ease-out transform ${
+                  isTransitioning
+                    ? "translate-x-full opacity-0"
+                    : "translate-x-0 opacity-100 animate-slideInRight animation-delay-200"
+                } text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] 2xl:text-[14rem]`}
               >
                 {remainingWords}
               </h1>
             )}
 
-            <p
-              className={`text-white/90 font-gotham uppercase mb-0 sm:mb-3 lg:mb-3 md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed transition-all duration-900 ease-out transform ${
-                isTransitioning ? "translate-y-8 opacity-0" : "translate-y-0 opacity-100 animate-fadeInUp animation-delay-400"
-              } text-sm sm:text-base md:text-lg`}
-            >
-              {firstRow}
-            </p>
+            {/* Subheading rows (renders 1 or more rows as provided) */}
+            <div className="pr-12 pt-4 ">
+              {subheadingRows.map((row, idx) => {
+                // stagger delays for multiple rows
+                const delayClass =
+                  idx === 0 ? "animation-delay-400" : idx === 1 ? "animation-delay-600" : `animation-delay-${400 + idx * 200}`;
 
-            {secondRow && (
-              <p
-                className={`text-white/90 font-gotham uppercase md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed transition-all duration-900 ease-out transform ${
-                  isTransitioning ? "translate-y-8 opacity-0" : "translate-y-0 opacity-100 animate-fadeInUp animation-delay-600"
-                } text-sm sm:text-base md:text-lg`}
-              >
-                {secondRow}
-              </p>
-            )}
+                return (
+                  <p
+                    key={idx}
+                    className={`text-white/90 font-gotham uppercase transition-all duration-900 ease-out transform ${
+                      isTransitioning ? "translate-y-2 opacity-0" : `translate-y-0 opacity-100 animate-fadeInUp ${delayClass}`
+                    } text-lg m:text-xl md:text-2xl lg:text-3xl xl:text-2xl 2xl:text-4xl font-semibold leading-relaxed`}
+                  >
+                    {row}
+                  </p>
+                );
+              })}
+            </div>
           </div>
         </div>
 
+        {/* Carousel Dots */}
         <div
           className="absolute left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-20"
           style={{ bottom: "20px" }}
@@ -561,6 +598,7 @@ const ImageCarousel = () => {
           ))}
         </div>
 
+        {/* Animations */}
         <style jsx>{`
           @keyframes fadeInUp {
             from {
@@ -602,9 +640,15 @@ const ImageCarousel = () => {
             animation-delay: 0.9s;
             opacity: 0;
           }
+          /* fallback for any programmatic delay classes created above */
+          .animation-delay-800 {
+            animation-delay: 1.2s;
+            opacity: 0;
+          }
         `}</style>
       </div>
 
+      {/* Footer */}
       <div className="relative w-full bg-[#333333] py-3 sm:py-6">
         <div className="container mx-auto px-4 sm:px-6">
           <p
@@ -618,6 +662,10 @@ const ImageCarousel = () => {
     </>
   );
 };
+
+
+
+
 
 /* =========================
    App (manages splash lifecycle)
