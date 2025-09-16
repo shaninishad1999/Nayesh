@@ -199,18 +199,18 @@ const Footer = () => {
               <ul className="space-y-1 text-sm md:text-lg tracking-wider text-gray-200">
                 <li>
                   <address className="not-italic ">
-                    Near Dange Chowk, Pimpri-Chinchwad,
+                   First Floor,Tamara Uprise,
                     <br />
-                    MH, India, 411018
+                    Pune, 411017
                   </address>
                 </li>
                 <li className="mt-1">
                   <IoCallOutline className="inline-block text-red-500" /> :{" "}
                   <a
-                    href="tel:+919876543210"
+                    href="tel:+919762444444"
                     className="hover:underline hover:decoration-red-400 hover:text-white underline-offset-2"
                   >
-                    +91 98765 43210
+                    +91 97624 44444
                   </a>
                 </li>
                 <li>
