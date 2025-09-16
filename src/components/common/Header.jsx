@@ -1,12 +1,10 @@
-// App.jsx
-import React, { useState, useEffect, useRef } from "react";
+
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import menuIcon from "../../assets/menuIcon.png";
 import colorLogo from "../../assets/colorLogo.png";
-import img1 from "../../assets/crousalImg/1.jpg";
-import img2 from "../../assets/crousalImg/2.jpg";
-import img3 from "../../assets/crousalImg/3.jpg";
+import ImageCarousel from "./ImageCarousel";
 
 /* =========================
    IntroSplash Component (SLOWER timings)
@@ -22,10 +20,8 @@ const IntroSplash = ({ onFinish }) => {
     const splashContainer = splashContainerRef.current;
     const overlayEl = overlayRef.current;
     const dotsEl = dotsRef.current;
-    const splashImg = splashContainer?.querySelector("img");
 
-    // initial entrance (container)
-    // NOTE: use a slightly larger initial scale so on mobile it doesn't look tiny
+    // initial entrance
     splashContainer.style.transform = "translate(-50%, -50%) scale(0.95)";
     splashContainer.style.opacity = "0";
     requestAnimationFrame(() => {
@@ -35,7 +31,6 @@ const IntroSplash = ({ onFinish }) => {
       splashContainer.style.opacity = "1";
     });
 
-    // timings
     const totalDelay = 1800;
     const moveDuration = 1200;
 
@@ -60,9 +55,8 @@ const IntroSplash = ({ onFinish }) => {
       const translateX = targetCenterX - splashCenterX;
       const translateY = targetCenterY - splashCenterY;
 
-      // compute scale but clamp to a reasonable range so mobile -> header movement isn't extreme
       let scale = targetRect.width / splashRect.width;
-      scale = Math.max(0.45, Math.min(scale, 1.2)); // clamp between 0.45 and 1.2
+      scale = Math.max(0.45, Math.min(scale, 1.2));
 
       splashContainer.style.transition = `transform ${moveDuration}ms cubic-bezier(.2,.9,.3,1), opacity ${moveDuration}ms ease`;
       splashContainer.style.transform = `translate(calc(-50% + ${translateX}px), calc(-50% + ${translateY}px)) scale(${scale})`;
@@ -116,7 +110,6 @@ const IntroSplash = ({ onFinish }) => {
         transition: "opacity 600ms ease",
       }}
     >
-      {/* Container for logo + dots (use this ref for moving) */}
       <div
         ref={splashContainerRef}
         style={{
@@ -124,7 +117,6 @@ const IntroSplash = ({ onFinish }) => {
           left: "50%",
           top: "50%",
           transform: "translate(-50%, -50%) scale(1)",
-          // responsive width: min(420px, 80vw) makes it larger on small screens
           width: "min(420px, 80vw)",
           height: "auto",
           display: "flex",
@@ -133,13 +125,12 @@ const IntroSplash = ({ onFinish }) => {
           willChange: "transform, opacity",
         }}
       >
-        {/* Logo */}
         <img
           src={logo}
           alt="Site logo"
           style={{
-            width: "100%", // fill the container responsively
-            maxWidth: "420px", // don't exceed original design
+            width: "100%",
+            maxWidth: "420px",
             height: "auto",
             objectFit: "contain",
             filter: "drop-shadow(0 20px 60px rgba(0,0,0,0.5))",
@@ -148,7 +139,6 @@ const IntroSplash = ({ onFinish }) => {
           }}
         />
 
-        {/* 3 Dots under logo (Reversed order) */}
         <div
           ref={dotsRef}
           style={{
@@ -197,7 +187,6 @@ const IntroSplash = ({ onFinish }) => {
         </div>
       </div>
 
-      {/* Dot animation */}
       <style>{`
         @keyframes pulseDot {
           0%, 100% { transform: scale(1); opacity: 0.85; }
@@ -210,9 +199,8 @@ const IntroSplash = ({ onFinish }) => {
 
 /* =========================
    Header Component
-   - SHOW DEFAULT logo by default (logo.png)
-   - colorLogo only on scroll (as before)
    ========================= */
+
 const Header = () => {
   const navigate = useNavigate();
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
@@ -288,7 +276,6 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // show default logo.png by default; switch to colorLogo only when scrolled
   const showColorLogo = isScrolled;
 
   return (
@@ -316,7 +303,6 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Desktop Menu */}
         <nav className="hidden lg:flex gap-8 mr-8 items-center">
           {menuItems.slice(0, 3).map((item) => (
             <button
@@ -338,24 +324,19 @@ const Header = () => {
             </button>
 
             <button
-              className={`transition-all duration-300 ${
-                isScrolled ? "ml-2" : "-mt-8 ml-2"
-              }`}
+              className={`transition-all duration-300 ${isScrolled ? "ml-2" : "-mt-8 ml-2"}`}
               onClick={() => setIsDesktopMenuOpen(true)}
               aria-label="Open menu"
             >
               <img
                 src={menuIcon}
                 alt="Open menu"
-                className={`h-10 w-10 xl:h-12 xl:w-12 object-contain transition-filter duration-200 ${
-                  isScrolled ? "filter invert" : "filter invert-0"
-                }`}
+                className={`h-10 w-10 xl:h-12 xl:w-12 object-contain transition-filter duration-200 ${isScrolled ? "filter invert" : "filter invert-0"}`}
               />
             </button>
           </div>
         </nav>
 
-        {/* Mobile Hamburger */}
         <button
           className={`lg:hidden transition-colors duration-300 mr-2 sm:mr-4 font-gotham font-light ${mobileTextColor}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -364,15 +345,12 @@ const Header = () => {
           <img
             src={menuIcon}
             alt="Toggle menu"
-            className={`h-6 w-6 sm:h-7 sm:w-7 object-contain transition-filter duration-200 ${
-              isScrolled ? "filter invert" : "filter invert-0"
-            }`}
+            className={`h-6 w-6 sm:h-7 sm:w-7 object-contain transition-filter duration-200 ${isScrolled ? "filter invert" : "filter invert-0"}`}
             aria-hidden="true"
           />
         </button>
       </div>
 
-      {/* Desktop Full-Screen Modal Menu */}
       {isDesktopMenuOpen && (
         <div className="fixed inset-0 h-screen w-screen bg-[#FF0000] flex flex-col font-gotham font-light items-center justify-center z-[100]">
           <button
@@ -380,19 +358,8 @@ const Header = () => {
             onClick={() => setIsDesktopMenuOpen(false)}
             aria-label="Close menu"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
@@ -412,14 +379,11 @@ const Header = () => {
           </ul>
 
           <div className="absolute bottom-8 text-center w-full">
-            <p className="text-gray-200 text-sm font-gotham font-light">
-              Press ESC to close
-            </p>
+            <p className="text-gray-200 text-sm font-gotham font-light">Press ESC to close</p>
           </div>
         </div>
       )}
 
-      {/* Mobile Dropdown */}
       {isMobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-white/95 z-40 shadow-sm">
           <nav className="px-2 py-2">
@@ -444,230 +408,6 @@ const Header = () => {
 };
 
 /* =========================
-   ImageCarousel (unchanged)
-   ========================= */
-
-const ImageCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  const images = [
-    {
-      src: img1,
-      alt: "Beautiful landscape 1",
-      heading: "The Balcony",
-      // explicit two-row split for the first slide as you requested
-      subheadingRows: ["Where you'll sip your moments", "together, every day."],
-    },
-    {
-      src: img2,
-      alt: "Beautiful landscape 2",
-      heading: "The Couch",
-      // single row for second slide (will render as one line)
-      subheadingRows: ["Where friends turn into family."],
-    },
-    {
-      src: img3,
-      alt: "Beautiful landscape 3",
-      heading: "The Corner",
-      // single row for third slide (will render as one line)
-      subheadingRows: ["That feels like it's only yours."],
-    },
-  ];
-
-  // Split heading into first word and remaining words
-  const splitHeading = (heading) => {
-    const words = heading.split(" ");
-    const firstWord = words[0];
-    const remainingWords = words.slice(1).join(" ");
-    return { firstWord, remainingWords };
-  };
-
-  // Auto-rotate carousel
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-        setIsTransitioning(false);
-      }, 400);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [images.length]);
-
-  // Navigate to a specific slide
-  const goToSlide = (index) => {
-    if (index !== currentIndex) {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentIndex(index);
-        setIsTransitioning(false);
-      }, 400);
-    }
-  };
-
-  const { firstWord, remainingWords } = splitHeading(images[currentIndex].heading);
-
-  // Use explicit rows if provided; otherwise put whole subheading in a single row
-  const subheadingRows =
-    images[currentIndex].subheadingRows && images[currentIndex].subheadingRows.length > 0
-      ? images[currentIndex].subheadingRows
-      : images[currentIndex].subheading
-      ? [images[currentIndex].subheading]
-      : [];
-
-  return (
-    <>
-      <div className="relative w-full h-screen overflow-hidden">
-        {/* Image */}
-        <div className="relative w-full h-full">
-          <img
-            src={images[currentIndex].src}
-            alt={images[currentIndex].alt}
-            className={`w-full h-full object-cover transition-all duration-900 ease-in-out transform ${
-              isTransitioning ? "scale-110 opacity-80" : "scale-100 opacity-100"
-            }`}
-          />
-        </div>
-
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/20" />
-
-        {/* Heading & Subheading */}
-        <div className="absolute inset-0 flex items-center justify-end">
-          <div className="text-right  w-full max-w-7xl flex flex-col items-end -space-y-10">
-            <h1
-              className={`text-white font-gotham uppercase tracking-wide transition-all duration-900 ease-out transform ${
-                isTransitioning
-                  ? "translate-x-full opacity-0"
-                  : "translate-x-0 opacity-100 animate-slideInRight"
-              } text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] 2xl:text-[14rem]`}
-            >
-              {firstWord}
-            </h1>
-
-            {remainingWords && (
-              <h1
-                className={`text-white font-gotham leading-none tracking-wide  uppercase transition-all duration-900 ease-out transform ${
-                  isTransitioning
-                    ? "translate-x-full opacity-0"
-                    : "translate-x-0 opacity-100 animate-slideInRight animation-delay-200"
-                } text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] 2xl:text-[14rem]`}
-              >
-                {remainingWords}
-              </h1>
-            )}
-
-            {/* Subheading rows (renders 1 or more rows as provided) */}
-            <div className="pr-12 pt-4 ">
-              {subheadingRows.map((row, idx) => {
-                // stagger delays for multiple rows
-                const delayClass =
-                  idx === 0 ? "animation-delay-400" : idx === 1 ? "animation-delay-600" : `animation-delay-${400 + idx * 200}`;
-
-                return (
-                  <p
-                    key={idx}
-                    className={`text-white/90 font-gotham uppercase transition-all duration-900 ease-out transform ${
-                      isTransitioning ? "translate-y-2 opacity-0" : `translate-y-0 opacity-100 animate-fadeInUp ${delayClass}`
-                    } text-lg m:text-xl md:text-2xl lg:text-3xl xl:text-2xl 2xl:text-4xl font-semibold leading-relaxed`}
-                  >
-                    {row}
-                  </p>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Carousel Dots */}
-        <div
-          className="absolute left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-20"
-          style={{ bottom: "20px" }}
-        >
-          {images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
-              className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 transform hover:scale-125 ${
-                index === currentIndex ? "bg-white scale-125 shadow-lg" : "bg-white/50 hover:bg-white/75"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Animations */}
-        <style jsx>{`
-          @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translateY(50px) scale(0.95);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0) scale(1);
-            }
-          }
-
-          @keyframes slideInRight {
-            from {
-              opacity: 0;
-              transform: translateX(120px) scale(0.95);
-            }
-            to {
-              opacity: 1;
-              transform: translateX(0) scale(1);
-            }
-          }
-
-          .animate-fadeInUp {
-            animation: fadeInUp 1s ease-out forwards;
-          }
-          .animate-slideInRight {
-            animation: slideInRight 1s ease-out forwards;
-          }
-          .animation-delay-200 {
-            animation-delay: 0.35s;
-            opacity: 0;
-          }
-          .animation-delay-400 {
-            animation-delay: 0.6s;
-            opacity: 0;
-          }
-          .animation-delay-600 {
-            animation-delay: 0.9s;
-            opacity: 0;
-          }
-          /* fallback for any programmatic delay classes created above */
-          .animation-delay-800 {
-            animation-delay: 1.2s;
-            opacity: 0;
-          }
-        `}</style>
-      </div>
-
-      {/* Footer */}
-      <div className="relative w-full bg-[#333333] py-3 sm:py-6">
-        <div className="container mx-auto px-4 sm:px-6">
-          <p
-            className="text-white text-center text-xs sm:text-sm md:text-lg lg:text-2xl leading-tight whitespace-normal break-words"
-            style={{ fontFamily: "GothamLight" }}
-          >
-            ARCHITECTURE &nbsp;&nbsp;||&nbsp;&nbsp; INTERIORS &nbsp;&nbsp;||&nbsp;&nbsp; PREMIUM HOMES
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};
-
-
-
-
-
-/* =========================
    App (manages splash lifecycle)
    ========================= */
 const App = () => {
@@ -677,7 +417,6 @@ const App = () => {
     <div className="bg-white">
       <Header />
 
-      {/* Show IntroSplash until it finishes */}
       {!splashDone && <IntroSplash onFinish={() => setSplashDone(true)} />}
 
       <main>
@@ -688,5 +427,5 @@ const App = () => {
   );
 };
 
-export { Header, ImageCarousel };
+export { Header };
 export default App;
