@@ -205,7 +205,7 @@ const Footer = () => {
                   </address>
                 </li>
                 <li className="mt-1">
-                  <IoCallOutline className="inline-block text-red-500" /> :{" "}
+                  <IoCallOutline className="inline-block text-red-500" />:{" "}
                   <a
                     href="tel:+919762444444"
                     className="hover:underline hover:decoration-red-400 hover:text-white underline-offset-2"

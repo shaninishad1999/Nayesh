@@ -3,11 +3,6 @@ import img1 from "../../assets/crousalImg/1.jpg";
 import img2 from "../../assets/crousalImg/2.jpg";
 import img3 from "../../assets/crousalImg/3.jpg";
 
-// Smooth, touch-enabled slider adapted from your original component.
-// Drop this file into the same folder and import/replace your previous ImageCarousel.
-// Notes: It keeps your headings/subheadings split logic and styling but changes the DOM structure
-// to a true sliding layout (horizontal track). No external library required.
-
 const ImageCarousel = () => {
   const images = [
     {
@@ -36,7 +31,6 @@ const ImageCarousel = () => {
   const autoplayRef = useRef(null);
   const touch = useRef({ startX: 0, currentX: 0, dragging: false });
 
-  // Split heading helper (keeps from your original file)
   const splitHeading = (heading) => {
     const words = heading.split(" ");
     const firstWord = words[0];
@@ -44,12 +38,21 @@ const ImageCarousel = () => {
     return { firstWord, remainingWords };
   };
 
-  // Autoplay: advance every 5s. Pause while dragging or on hover.
   useEffect(() => {
     startAutoplay();
     return stopAutoplay;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
+
+  // ensure track width is correct on mount / images length change
+  useEffect(() => {
+    if (trackRef.current) {
+      trackRef.current.style.width = `${images.length * 100}%`;
+      // Position it correctly initially
+      trackRef.current.style.transform = `translate3d(${-currentIndex * (100 / images.length)}%, 0, 0)`;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [images.length]);
 
   const startAutoplay = () => {
     stopAutoplay();
@@ -57,6 +60,7 @@ const ImageCarousel = () => {
       goToSlide((currentIndex + 1) % images.length);
     }, 5000);
   };
+
   const stopAutoplay = () => {
     if (autoplayRef.current) {
       clearInterval(autoplayRef.current);
@@ -67,12 +71,11 @@ const ImageCarousel = () => {
   const goToSlide = (index) => {
     if (index === currentIndex) return;
     setIsTransitioning(true);
-    // allow CSS transition to finish then clear transitioning flag
     setCurrentIndex(index);
+    // clear transitioning after transition duration
     setTimeout(() => setIsTransitioning(false), 700);
   };
 
-  // Touch / mouse drag handlers for swipe
   const handleTouchStart = (e) => {
     stopAutoplay();
     touch.current.dragging = true;
@@ -82,19 +85,20 @@ const ImageCarousel = () => {
   };
 
   const handleTouchMove = (e) => {
-    if (!touch.current.dragging) return;
+    if (!touch.current.dragging || !trackRef.current) return;
     touch.current.currentX = e.touches ? e.touches[0].clientX : e.clientX;
     const dx = touch.current.currentX - touch.current.startX;
-    const percentage = (dx / window.innerWidth) * 100;
-    const base = -currentIndex * 100;
-    if (trackRef.current) trackRef.current.style.transform = `translateX(${base + percentage}%)`;
+    // compute percentage relative to viewport width but convert to track-percentage
+    const percentDelta = (dx / window.innerWidth) * (100 / images.length);
+    const base = -currentIndex * (100 / images.length);
+    trackRef.current.style.transform = `translate3d(${base + percentDelta}%, 0, 0)`;
   };
 
   const handleTouchEnd = () => {
     if (!touch.current.dragging) return;
     touch.current.dragging = false;
     const dx = touch.current.currentX - touch.current.startX;
-    const threshold = window.innerWidth * 0.15; // swipe threshold
+    const threshold = window.innerWidth * 0.15;
     if (dx > threshold) {
       goToSlide(Math.max(0, currentIndex - 1));
     } else if (dx < -threshold) {
@@ -102,19 +106,20 @@ const ImageCarousel = () => {
     } else {
       // snap back to current
       if (trackRef.current) {
-        trackRef.current.style.transition = "transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1)";
-        trackRef.current.style.transform = `translateX(${-currentIndex * 100}%)`;
+        trackRef.current.style.transition = "transform 700ms cubic-bezier(0.2,0.8,0.2,1)";
+        trackRef.current.style.transform = `translate3d(${-currentIndex * (100 / images.length)}%, 0, 0)`;
       }
     }
     startAutoplay();
   };
 
   useEffect(() => {
-    // ensure track is positioned when currentIndex changes
+    // position track when currentIndex changes
     if (trackRef.current && !touch.current.dragging) {
-      trackRef.current.style.transition = "transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1)";
-      trackRef.current.style.transform = `translateX(${-currentIndex * 100}%)`;
+      trackRef.current.style.transition = "transform 700ms cubic-bezier(0.2,0.8,0.2,1)";
+      trackRef.current.style.transform = `translate3d(${-currentIndex * (100 / images.length)}%, 0, 0)`;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
 
   const { firstWord, remainingWords } = splitHeading(images[currentIndex].heading);
@@ -131,46 +136,61 @@ const ImageCarousel = () => {
         className="relative w-full h-screen overflow-hidden"
         onMouseEnter={stopAutoplay}
         onMouseLeave={startAutoplay}
+        style={{ boxSizing: "border-box" }}
       >
-        {/* Sliding track */}
+        {/* Sliding track: width set to number of slides * 100% */}
         <div
           ref={trackRef}
-          className="absolute top-0 left-0 h-full flex w-[100%]" /* 3 slides -> 300% */
+          className="absolute top-0 left-0 h-full flex"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           onMouseDown={(e) => {
             e.preventDefault();
             handleTouchStart(e);
-            window.addEventListener("mousemove", handleTouchMove);
-            window.addEventListener("mouseup", () => {
-              window.removeEventListener("mousemove", handleTouchMove);
+            const onMove = (ev) => handleTouchMove(ev);
+            const onUp = () => {
+              window.removeEventListener("mousemove", onMove);
+              window.removeEventListener("mouseup", onUp);
               handleTouchEnd();
-            }, { once: true });
+            };
+            window.addEventListener("mousemove", onMove);
+            window.addEventListener("mouseup", onUp, { once: true });
           }}
-          style={{ transform: `translateX(${-currentIndex * 100}%)`, transition: "transform 700ms cubic-bezier(0.2,0.8,0.2,1)" }}
+          // initial safe transform and will-change
+          style={{
+            width: `${images.length * 100}%`,
+            transform: `translate3d(${-currentIndex * (100 / images.length)}%, 0, 0)`,
+            transition: "transform 700ms cubic-bezier(0.2,0.8,0.2,1)",
+            willChange: "transform",
+            WebkitTransform: `translate3d(${-currentIndex * (100 / images.length)}%, 0, 0)`,
+          }}
         >
           {images.map((img, idx) => (
-            <div key={idx} className="w-full flex-shrink-0 h-full relative">
+            <div
+              key={idx}
+              className="h-full relative flex-shrink-0"
+              style={{ width: `${100 / images.length}%`, overflow: "hidden" }}
+            >
               <img
                 src={img.src}
                 alt={img.alt}
-                className={`w-full h-full object-cover transition-transform duration-700 ease-out transform ${
-                  idx === currentIndex ? "scale-100" : "scale-105"
-                }`}
+                // ensure no inline gaps
+                className={`w-full h-full object-cover transition-transform duration-700 ease-out transform ${idx === currentIndex ? "scale-100" : "scale-105"}`}
+                style={{ display: "block", backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
               />
               <div className="absolute inset-0 bg-black/20" />
             </div>
           ))}
         </div>
 
-        {/* Heading & Subheading (keeps your positioning, adjusted to be on top of slider) */}
-        <div className="absolute inset-0 flex items-center justify-end pointer-events-none">
-          <div className="text-right w-full max-w-7xl  flex flex-col items-end -space-y-2 sm:-space-y-4 md:-space-y-8">
+        {/* Heading & Subheading */}
+        <div className="absolute inset-0 flex items-center justify-end pointer-events-none overflow-hidden">
+          <div className="text-right w-full max-w-3xl sm:max-w-5xl lg:max-w-7xl  flex flex-col items-end -space-y-2 sm:-space-y-4 md:-space-y-8">
             <h1
               className={`text-white font-gotham uppercase tracking-wide transition-all duration-700 ease-out transform pointer-events-auto ${
                 isTransitioning ? "translate-x-full opacity-0" : "translate-x-0 opacity-100 animate-slideInRight"
-              } text-7xl sm:text-7xl md:text-[10rem] lg:text-[12rem] xl:text-[12rem] 2xl:text-[14rem]`}
+              } text-7xl sm:text-7xl md:text-[10rem] lg:text-[12rem] xl:text-[12rem] 2xl:text-[14rem] leading-tight`}
             >
               {firstWord}
             </h1>
@@ -179,13 +199,13 @@ const ImageCarousel = () => {
               <h1
                 className={`text-white font-gotham leading-none tracking-wide uppercase transition-all duration-700 ease-out transform pointer-events-auto ${
                   isTransitioning ? "translate-x-full opacity-0" : "translate-x-0 opacity-100 animate-slideInRight animation-delay-200"
-                } text-7xl sm:text-7xl md:text-[10rem] lg:text-[12rem] xl:text-[12rem] 2xl:text-[14rem]`}
+                } text-4xl sm:text-6xl md:text-[10rem] lg:text-[12rem] xl:text-[12rem] 2xl:text-[14rem] leading-tight`}
               >
                 {remainingWords}
               </h1>
             )}
 
-            <div className="pt-1 sm:pt-3 md:pt-4 lg:pt-5 xl:pt-6 pointer-events-auto  ">
+            <div className="pt-1 sm:pt-3 md:pt-4 lg:pt-5 xl:pt-6 pointer-events-auto ">
               {subheadingRows.map((row, idx) => {
                 const delayClass = idx === 0 ? "animation-delay-400" : idx === 1 ? "animation-delay-600" : `animation-delay-${400 + idx * 200}`;
                 return (
@@ -193,7 +213,7 @@ const ImageCarousel = () => {
                     key={idx}
                     className={`text-white/90 font-gotham uppercase transition-all duration-700 ease-out transform pointer-events-auto ${
                       isTransitioning ? "translate-y-2 opacity-0" : `translate-y-0 opacity-100 animate-fadeInUp ${delayClass}`
-                    } text-sm pr-5 sm:text-xl md:text-2xl md:pr-10 lg:text-3xl lg:pr-14 xl:text-2xl 2xl:text-4xl font-semibold leading-relaxed`}
+                    } text-xs sm:text-sm md:text-2xl md:pr-10 lg:text-3xl lg:pr-14 xl:text-2xl 2xl:text-4xl font-semibold leading-relaxed`}
                   >
                     {row}
                   </p>
@@ -216,9 +236,6 @@ const ImageCarousel = () => {
             />
           ))}
         </div>
-
-        {/* Prev/Next arrows (optional) */}
-       
 
         <style jsx>{`
           @keyframes fadeInUp {

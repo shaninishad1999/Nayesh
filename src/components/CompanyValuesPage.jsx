@@ -221,7 +221,7 @@ const CompanyValuesPage = () => {
           <div className="text-center md:text-left mb-12" ref={headerRef}>
             <h1 className="text-4xl md:text-7xl tracking-wider">
               <span className="font-light">OUR</span>{" "}
-              <span className="font-gotham font-extralight">VALUES</span>
+              <span className="font-gotham font-medium">VALUES</span>
             </h1>
           </div>
 
@@ -302,15 +302,15 @@ const CompanyValuesPage = () => {
 
           {/* Separator Lines */}
           <div
-            className="border-t-2 border-[#ffffff] z-[9999] border-opacity-30 mb-1"
+            className="border-t-2 bg-white border-[#ffffff] z-[9999] border-opacity-30 mb-1"
             ref={(el) => setSeparatorRef(el, 0)}
           ></div>
           <div
-            className="border-t-2 border-[#ffffff] border-opacity-30 mb-1"
+            className="border-t-2 bg-white border-[#ffffff] border-opacity-30 mb-1"
             ref={(el) => setSeparatorRef(el, 1)}
           ></div>
           <div
-            className="border-t-2 border-[#ffffff] border-opacity-30 mb-12"
+            className="border-t-2 bg-white  border-[#ffffff] border-opacity-30 mb-12"
             ref={(el) => setSeparatorRef(el, 2)}
           ></div>
 
@@ -321,7 +321,7 @@ const CompanyValuesPage = () => {
             id="offer"
           >
             <h1 className="text-4xl md:text-7xl font-light tracking-wider">
-              HOW WE <span className="font-gotham">WORK</span>
+              HOW WE <span className="font-gotham font-medium">WORK</span>
             </h1>
           </div>
         </div>
