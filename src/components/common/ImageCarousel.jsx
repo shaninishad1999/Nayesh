@@ -185,7 +185,7 @@ const ImageCarousel = () => {
               </h1>
             )}
 
-            <div className="pt-1 sm:pt-3 md:pt-4 lg:pt-5 xl:pt-6 pointer-events-auto">
+            <div className="pt-1 sm:pt-3 md:pt-4 lg:pt-5 xl:pt-6 pointer-events-auto  ">
               {subheadingRows.map((row, idx) => {
                 const delayClass = idx === 0 ? "animation-delay-400" : idx === 1 ? "animation-delay-600" : `animation-delay-${400 + idx * 200}`;
                 return (
@@ -193,7 +193,7 @@ const ImageCarousel = () => {
                     key={idx}
                     className={`text-white/90 font-gotham uppercase transition-all duration-700 ease-out transform pointer-events-auto ${
                       isTransitioning ? "translate-y-2 opacity-0" : `translate-y-0 opacity-100 animate-fadeInUp ${delayClass}`
-                    } text-sm sm:text-xl md:text-2xl lg:text-3xl xl:text-2xl 2xl:text-4xl font-semibold leading-relaxed`}
+                    } text-sm pr-5 sm:text-xl md:text-2xl md:pr-10 lg:text-3xl lg:pr-14 xl:text-2xl 2xl:text-4xl font-semibold leading-relaxed`}
                   >
                     {row}
                   </p>
